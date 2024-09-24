@@ -1,0 +1,45 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "D:/Electronics/stm32/lab/lab_led/Core/Inc",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/**"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "D:/Electronics/stm32/lab/lab_led/Core/Inc",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/**"
+        ]
+      },
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "USE_HAL_DRIVER",
+        "STM32F103xE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "compileCommands": "${workspaceFolder}/compile_commands.json",
+      "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+    }
+  ],
+  "version": 4
+}

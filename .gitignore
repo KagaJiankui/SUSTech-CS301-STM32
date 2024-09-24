@@ -1,8 +1,13 @@
 *
 */**
-!*.codeworkspace
+!*.code-workspace
 !.gitignore
 !lab
 !lab/**
+lab/*/build
+lab/*/build/**
+lab/*/.cache
+lab/*/.cache/** */
+lab/*/compile_commands.json
 !pwm_calc
 !pwm_calc/*.ipynb

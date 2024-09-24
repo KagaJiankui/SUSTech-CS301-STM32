@@ -1,0 +1,51 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "name": "lab_led",
+      "path": "lab/lab_led"
+    }
+  ],
+  "settings": {
+    "typescript.tsc.autoDetect": "off",
+    "clangd.arguments": [
+      "--all-scopes-completion",
+      "--background-index",
+      "--background-index-priority=low",
+      "--completion-parse=auto",
+      "--completion-style=detailed",
+      "--enable-config",
+      "--header-insertion-decorators",
+      "--header-insertion=iwyu",
+      "--pch-storage=memory",
+      "--parse-forwarding-functions",
+      "--query-driver=D:/embedded-toolchain/arm-none-eabi/bin/arm-none-eabi-gcc,D:/embedded-toolchain/arm-none-eabi/bin/arm-none-eabi-g++",
+      "--ranking-model=decision_forest",
+      "-j=24",
+      "--log=error"
+    ],
+    "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
+    "files.associations": {
+      "*.hsnips": "hsnips",
+      "*.m": "matlab",
+      "*.tcc": "cpp",
+      "*.vssettings": "xml",
+      ".clang-format": "yaml",
+      ".clang-tidy": "yaml",
+      ".clangd": "yaml",
+    },
+    "cSpell.words": [
+      "cubef",
+      "DPLATFORMIO",
+      "DSTM",
+      "fdata",
+      "gccarmnoneeabi",
+      "nostdlib",
+      "platformio"
+    ],
+    "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
+    "C_Cpp.intelliSenseEngine": "default"
+  }
+}
