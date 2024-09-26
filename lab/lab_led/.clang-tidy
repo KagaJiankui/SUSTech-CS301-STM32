@@ -144,7 +144,6 @@ Checks: "
   readability-uniqueptr-delete-release
   readability-use-anyofallof"
 WarningsAsErrors: ""
-HeaderFilterRegex: ""
 ExtraArgsBefore:
   [
     "--sysroot=D:/embedded-toolchain/arm-none-eabi/arm-none-eabi",
@@ -166,5 +165,5 @@ ExtraArgsBefore:
     "-isystem",
     "D:/embedded_toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/include",
     "-DSTM32F103xE",
-    "-DUSE_HAL_DRIVER",
+    "-DUSE_HAL_DRIVER"
   ]

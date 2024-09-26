@@ -6,6 +6,10 @@
     {
       "name": "lab_led",
       "path": "lab/lab_led"
+    },
+    {
+      "name": "tutorial",
+      "path": "lab/tutorial_for_vscode"
     }
   ],
   "settings": {
@@ -35,6 +39,16 @@
       ".clang-format": "yaml",
       ".clang-tidy": "yaml",
       ".clangd": "yaml",
+      "cmath": "cpp",
+      "iostream": "cpp",
+      "ostream": "cpp",
+      "string": "cpp",
+      "string_view": "cpp",
+      "gpio.h": "c",
+      "main.h": "c",
+      "_default_types.h": "c",
+      "features.h": "c",
+      "_newlib_version.h": "c"
     },
     "cSpell.words": [
       "cubef",
@@ -46,6 +60,17 @@
       "platformio"
     ],
     "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
-    "C_Cpp.intelliSenseEngine": "default"
+    "C_Cpp.intelliSenseEngine": "default",
+    "cortex-debug.variableUseNaturalFormat": false
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "echo",
+        "type": "shell",
+        "command": "echo Hello"
+      }
+    ]
   }
 }

@@ -7,7 +7,10 @@
 lab/*/build
 lab/*/build/**
 lab/*/.cache
-lab/*/.cache/** */
+lab/*/.cache/**
+lab/*/Drivers
+lab/*/Drivers/**
 lab/*/compile_commands.json
+lab/*/*_dist.md
 !pwm_calc
 !pwm_calc/*.ipynb

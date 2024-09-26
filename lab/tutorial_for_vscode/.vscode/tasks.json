@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Pandoc - 编译当前markdown为PDF - Tectonic",
+      "type": "shell",
+      "command": "pandoc",
+      "isBackground": true,
+      "group": "build",
+      "args": [
+        "-f",
+        "markdown+east_asian_line_breaks",
+        "--listings",
+        "--pdf-engine=tectonic",
+        "--template=mppl.tex",
+        "${fileBasenameNoExtension}_dist.md",
+        "-o",
+        "./export/${fileBasenameNoExtension}.pdf"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+    {
+      "label": "Pandoc - 编译所有mermaid图片",
+      "type": "shell",
+      "command": "mmdc",
+      "isBackground": true,
+      "group": "build",
+      "args": [
+        "-w",
+        "1920",
+        "-i",
+        "${fileBasenameNoExtension}.md",
+        "-o",
+        "${fileBasenameNoExtension}_dist.md",
+        "-e",
+        "png",
+        "-b",
+        "transparent",
+        "-t",
+        "neutral"
+      ],
+      "options": {
+        "cwd": "${fileDirname}"
+      }
+    },
+  ]
+}

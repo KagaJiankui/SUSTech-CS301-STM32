@@ -63,6 +63,7 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -93,14 +94,20 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+    int key = GPIOA->IDR & 0x8000;
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_Delay(1000);
-	  HAL_GPIO_TogglePin(LED0_GPIO_Port, LED0_Pin);
-	  HAL_GPIO_TogglePin(LED1_GPIO_Port, LED1_Pin);
-	  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8);
-	  //HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_2);
+    if (key)
+    {
+      GPIOD->ODR |= 1 << 2;
+      HAL_Delay(500);
+      GPIOD->ODR &= ~(1 << 2);
+      HAL_Delay(500);
+    } else
+    {
+      GPIOD->ODR &= ~(1 << 2);
+    }
   }
   /* USER CODE END 3 */
 }
@@ -128,6 +135,7 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+
   /** Initializes the CPU, AHB and APB buses clocks
   */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
@@ -178,5 +186,3 @@ void assert_failed(uint8_t *file, uint32_t line)
   /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -4,27 +4,28 @@
       "name": "Win32",
       "includePath": [
         "D:/Electronics/stm32/lab/lab_led/Core/Inc",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/**",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
-        "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/**"
+        "D:/Electronics/stm32/lab/lab_led/Core/Inc/**",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Include",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+        "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Include/**"
       ],
       "browse": {
         "limitSymbolsToIncludedHeaders": false,
         "path": [
           "D:/Electronics/stm32/lab/lab_led/Core/Inc",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/**",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
-          "C:/Users/Falke/STM32Cube/Repository/STM32Cube_FW_F1_V1.8.6/Drivers/CMSIS/Include/**"
+          "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Include",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "D:/Electronics/stm32/lab/lab_led/Drivers/CMSIS/Include/**"
         ]
       },
       "defines": [
