@@ -7,7 +7,7 @@
     {
       "name": "Cortex Debug",
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder}/build/Debug/lab_led.elf",
+      "executable": "${workspaceFolder}/build/RelWithDebInfo/lab_lcd.elf",
       "targetId":"stm32f103rc",
       "request": "launch",
       "type": "cortex-debug",

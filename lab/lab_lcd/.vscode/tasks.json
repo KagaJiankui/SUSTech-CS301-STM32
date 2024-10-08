@@ -15,7 +15,7 @@
         "-c",
         "halt",
         "-c",
-        "\"flash write_image erase ${workspaceFolder:lab_led}/build/lab_led.elf 0x08000000\"",
+        "\"flash write_image erase ${workspaceFolder:lab_lcd}/build/RelWithDebInfo/lab_lcd.elf 0x08000000\"",
         "-c",
         "verify",
         "-c",

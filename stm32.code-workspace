@@ -8,8 +8,8 @@
       "path": "lab/lab_lcd"
     },
     {
-      "name": "assign1",
-      "path": "lab/assign1"
+      "name": "lab_led",
+      "path": "lab/lab_led"
     }
   ],
   "settings": {

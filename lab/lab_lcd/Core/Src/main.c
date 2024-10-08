@@ -1,27 +1,27 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2024 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2024 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "gpio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "lcd.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,9 +57,9 @@ void SystemClock_Config(void);
 /* USER CODE END 0 */
 
 /**
-  * @brief  The application entry point.
-  * @retval int
-  */
+ * @brief  The application entry point.
+ * @retval int
+ */
 int main(void)
 {
 
@@ -80,7 +80,7 @@ int main(void)
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
+  LCD_Init();
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -91,27 +91,98 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  uint8_t x = 0;
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    switch (x)
+    {
+    case 0:
+      LCD_Clear(WHITE);
+      BACK_COLOR = WHITE;
+      break;
+    case 1:
+      LCD_Clear(BLACK);
+      BACK_COLOR = BLACK;
+      break;
+    case 2:
+      LCD_Clear(BLUE);
+      BACK_COLOR = BLUE;
+      break;
+    case 3:
+      LCD_Clear(RED);
+      BACK_COLOR = RED;
+      break;
+    case 4:
+      LCD_Clear(MAGENTA);
+      BACK_COLOR = MAGENTA;
+      break;
+    case 5:
+      LCD_Clear(GREEN);
+      BACK_COLOR = GREEN;
+      break;
+    case 7:
+      LCD_Clear(YELLOW);
+      BACK_COLOR = YELLOW;
+      break;
+    case 8:
+      LCD_Clear(BRRED);
+      BACK_COLOR = BRRED;
+      break;
+    case 9:
+      LCD_Clear(GRAY);
+      BACK_COLOR = GRAY;
+      break;
+    case 10:
+      LCD_Clear(LGRAY);
+      BACK_COLOR = LGRAY;
+      break;
+    case 11:
+      LCD_Clear(BROWN);
+      BACK_COLOR = BROWN;
+      break;
+    default:
+      break;
+    } // end of switch
+    POINT_COLOR = RED;
+    LCD_ShowString(30, 40, 200, 24, 24, (uint8_t *)"Mini STM32 ^_^");
+    LCD_ShowString(30, 70, 200, 16, 16, (uint8_t *)"TFTLCD TEST");
+    /* Code of showing address of GPIOA->CRL (represented in hexadecimal) BEGIN */
+    uint32_t num = (uint32_t)(GPIOA->CRL);
+    char buf[21] = {'G', 'P', 'I', 'O', 'A', '-', '>', 'C', 'R', 'L', '=', '0', 'x', 0, 0, 0, 0, 0, 0, 0, 0};
+    for (int i = 0; i < 8; i++)
+    {
+      buf[20 - i] = (num >> (4 * i)) & 0xF;
+      buf[20 - i] += buf[20 - i] > 9 ? 'A' - 10 : '0';
+    }
+    buf[20] = '\0';
+    LCD_ShowString(30, 120, 240, 16, 16, (uint8_t *)buf);
+    /* Code of showing address of GPIOA->CRL (represented in hexadecimal) END */
+    POINT_COLOR = BLACK;
+    LCD_DrawRectangle(30, 150, 210, 190);
+    LCD_Fill(31, 151, 209, 189, YELLOW);
+    x++;
+    if (x == 12)
+      x = 0;
+    HAL_Delay(2000);
   }
   /* USER CODE END 3 */
 }
 
 /**
-  * @brief System Clock Configuration
-  * @retval None
-  */
+ * @brief System Clock Configuration
+ * @retval None
+ */
 void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+   * in the RCC_OscInitTypeDef structure.
+   */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
@@ -125,9 +196,8 @@ void SystemClock_Config(void)
   }
 
   /** Initializes the CPU, AHB and APB buses clocks
-  */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+   */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -144,9 +214,9 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
-  * @brief  This function is executed in case of error occurrence.
-  * @retval None
-  */
+ * @brief  This function is executed in case of error occurrence.
+ * @retval None
+ */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
@@ -158,14 +228,14 @@ void Error_Handler(void)
   /* USER CODE END Error_Handler_Debug */
 }
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
-  * @brief  Reports the name of the source file and the source line number
-  *         where the assert_param error has occurred.
-  * @param  file: pointer to the source file name
-  * @param  line: assert_param error line source number
-  * @retval None
-  */
+ * @brief  Reports the name of the source file and the source line number
+ *         where the assert_param error has occurred.
+ * @param  file: pointer to the source file name
+ * @param  line: assert_param error line source number
+ * @retval None
+ */
 void assert_failed(uint8_t *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
