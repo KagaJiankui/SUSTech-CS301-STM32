@@ -1,0 +1,46 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "D:/Electronics/stm32/lab/lab_lcd/Core/Inc",
+        "D:/Electronics/stm32/lab/lab_lcd/Core/Inc/**",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include/**"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "D:/Electronics/stm32/lab/lab_lcd/Core/Inc",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include/**"
+        ]
+      },
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "USE_HAL_DRIVER",
+        "STM32F103xE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "compileCommands": "${workspaceFolder}/compile_commands.json",
+      "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+    }
+  ],
+  "version": 4
+}

@@ -14,12 +14,13 @@
   date: datetime.today().display("[month repr:short] [day], [year]"),
 )
 
+#set cite(style: "chicago-author-date")
+
 #set text(
   font: ("HarmonyOS Sans", "HarmonyOS Sans SC"),
   lang: "zh",
 )
 
-#set cite(style: "chicago-author-date")
 #show link: it=>[
   #underline(text(rgb("#4466ff"))[#it.body], stroke:(dash:"dashed"))
 ]

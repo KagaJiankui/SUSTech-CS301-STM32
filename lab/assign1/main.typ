@@ -1,127 +1,41 @@
 #import "@preview/arkheion:0.1.0": arkheion, arkheion-appendices
 
 #show: arkheion.with(
-  title: "Typst Template for arXiv",
+  title: [Assignment 1
+
+  STM32 HAL库源码分析],
   authors: (
-    (name: "Author 1", email: "user@domain.com", affiliation: "Company", orcid: "0000-0000-0000-0000"),
-    (name: "Author 2", email: "user@domain.com", affiliation: "Company"),
+    (name: "仇琨元", email: "11913019@mail.sustech.edu.cn", affiliation: "",),
   ),
-  // Insert your abstract after the colon, wrapped in brackets.
-  // Example: `abstract: [This is my abstract...]`
   abstract: lorem(55),
-  keywords: ("First keyword", "Second keyword", "etc."),
-  date: "May 16, 2023",
+  date: datetime.today().display("[month repr:short] [day], [year]"),
 )
-#set cite(style: "chicago-author-date")
-#show link: underline
+#set cite(style: "institute-of-electrical-and-electronics-engineers")
 
-= Introduction
-#lorem(60)
-
-= Heading: first level
-#lorem(20)
-
-== Heading: second level
-#lorem(20)
-
-=== Heading: third level
-
-==== Paragraph
-#lorem(20)
-
-#lorem(20)
-
-= Math
-
-*Inline:* Let $a$, $b$, and $c$ be the side
-lengths of right-angled triangle. Then, we know that: $a^2 + b^2 = c^2$
-
-*Block without numbering:*
-
-#math.equation(block: true, numbering: none, [
-    $
-    sum_(k=1)^n k = (n(n+1)) / 2
-    $
-  ]
+#set text(
+  font: ("HarmonyOS Sans", "HarmonyOS Sans SC"),
+  lang: "zh",
 )
 
-*Block with numbering:*
+#show link: it=>[
+  #underline(text(rgb("#4466ff"))[#it.body], stroke:(dash:"dashed"))
+]
 
-As shown in @equation.
+#show raw: set text(
+  font: ("Sarasa Fixed SC Nerd Font"),
+)
 
-$
-sum_(k=1)^n k = (n(n+1)) / 2
-$ <equation>
+= HAL库简介
 
-*More information:*
-- #link("https://typst.app/docs/reference/math/equation/")
+HAL (Hardware Abstraction Layer) 库是由STMicroelectronics官方提供的STM32硬件抽象层，旨在简化基于STM32微控制器系列产品的应用程序开发。HAL库将各个寄存器和内存映射表抽象为一组库函数和便于记忆的宏定义，使得开发者能够脱离不同型号单片机的底层细节, 专注于应用程序的核心逻辑, 而不必将大量时间耗费在逐个记忆和配置寄存器的控制字上.
 
+由于微控制器等嵌入式设备的片上资源较为紧张, 最终生成的机器代码需要尽可能压缩体积、提高执行效率, 因此HAL库的主要组成部分是宏定义和内联函数, 在预处理阶段便会被编译器展开到具体的寄存器和内存映射, 而不是在运行阶段再进行嵌套的函数调用, 这样的设计最大程度上避免了函数调用带来的额外开销.
 
-= Citation
+HAL库具有下面几个主要特点:
 
-You can use citations by using the `#cite` function with the key for the reference and adding a bibliography. Typst supports BibLateX and Hayagriva.
-
-```typst
-#bibliography("bibliography.bib")
-```
-
-Single citation @Vaswani2017AttentionIA. Multiple citations @Vaswani2017AttentionIA @hinton2015distilling. In text #cite(<Vaswani2017AttentionIA>, form: "prose")
-
-*More information:*
-- #link("https://typst.app/docs/reference/meta/bibliography/")
-- #link("https://typst.app/docs/reference/meta/cite/")
-
-= Figures and Tables
-
-
-#figure(
-  table(
-    align: center,
-    columns: (auto, auto),
-    row-gutter: (2pt, auto),
-    stroke: 0.5pt,
-    inset: 5pt,
-    [header 1], [header 2],
-    [cell 1], [cell 2],
-    [cell 3], [cell 4],
-  ),
-  caption: [#lorem(5)]
-) <table>
-
-#figure(
-  image("image.png", width: 30%),
-  caption: [#lorem(7)]
-) <figure>
-
-*More information*
-
-- #link("https://typst.app/docs/reference/meta/figure/")
-- #link("https://typst.app/docs/reference/layout/table/")
-
-= Referencing
-
-@figure #lorem(10), @table.
-
-*More information:*
-
-- #link("https://typst.app/docs/reference/meta/ref/")
-
-= Lists
-
-*Unordered list*
-
-- #lorem(10)
-- #lorem(8)
-
-*Numbered list*
-
-+ #lorem(10)
-+ #lorem(8)
-+ #lorem(12)
-
-*More information:*
-- #link("https://typst.app/docs/reference/layout/enum/")
-- #link("https://typst.app/docs/reference/meta/cite/")
+- 简单易用: 通过统一的API访问硬件资源. 免除了查找手册的步骤.
+- 可移植性: 在不同STM32系列之间具有良好的可移植性.
+- 良好性能: 编译器优化后能够生成近似于基于寄存器开发的高效代码.
 
 
 // Add bibliography and create Bibiliography section
@@ -129,9 +43,9 @@ Single citation @Vaswani2017AttentionIA. Multiple citations @Vaswani2017Attentio
 
 // Create appendix section
 #show: arkheion-appendices
+
 =
 
 == Appendix section
 
 #lorem(100)
-

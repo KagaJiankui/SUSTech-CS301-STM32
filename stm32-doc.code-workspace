@@ -4,8 +4,8 @@
       "path": "."
     },
     {
-      "name": "lab_lcd",
-      "path": "lab/lab_lcd"
+      "name": "lab_led",
+      "path": "lab/lab_led"
     },
     {
       "name": "assign1",
@@ -61,7 +61,8 @@
     ],
     "C_Cpp.default.browse.limitSymbolsToIncludedHeaders": true,
     "C_Cpp.intelliSenseEngine": "default",
-    "cortex-debug.variableUseNaturalFormat": false
+    "cortex-debug.variableUseNaturalFormat": false,
+    "CodeGPT.apiKey": "Custom"
   },
   "tasks": {
     "version": "2.0.0",
