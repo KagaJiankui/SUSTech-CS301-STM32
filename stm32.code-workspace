@@ -2,14 +2,6 @@
   "folders": [
     {
       "path": "."
-    },
-    {
-      "name": "lab_lcd",
-      "path": "lab/lab_lcd"
-    },
-    {
-      "name": "lab_led",
-      "path": "lab/lab_led"
     }
   ],
   "settings": {
