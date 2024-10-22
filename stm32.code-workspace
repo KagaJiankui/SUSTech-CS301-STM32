@@ -2,6 +2,10 @@
   "folders": [
     {
       "path": "."
+    },
+    {
+      "name": "lab_lcd",
+      "path": "lab/lab_lcd"
     }
   ],
   "settings": {
@@ -40,7 +44,8 @@
       "main.h": "c",
       "_default_types.h": "c",
       "features.h": "c",
-      "_newlib_version.h": "c"
+      "_newlib_version.h": "c",
+      "stm32f1xx_it.h": "c"
     },
     "cSpell.words": [
       "cubef",
@@ -61,7 +66,8 @@
       {
         "label": "echo",
         "type": "shell",
-        "command": "echo Hello"
+        "command": "echo Hello",
+        "problemMatcher": []
       }
     ]
   }

@@ -3,35 +3,27 @@
     {
       "name": "Win32",
       "includePath": [
-        "D:/Electronics/stm32/lab/lab_lcd/Core/Inc",
-        "D:/Electronics/stm32/lab/lab_lcd/Core/Inc/**",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/**",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
-        "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include/**"
+        "${workspaceFolder:lab_lcd}/Core/Inc",
+        "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Include"
       ],
       "browse": {
         "limitSymbolsToIncludedHeaders": false,
         "path": [
-          "D:/Electronics/stm32/lab/lab_lcd/Core/Inc",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/**",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
-          "D:/Electronics/stm32/lab/lab_lcd/Drivers/CMSIS/Include/**"
+          "${workspaceFolder:lab_lcd}/Core/Inc",
+          "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Include",
+          "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "${workspaceFolder:lab_lcd}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "${workspaceFolder:lab_lcd}/Drivers/CMSIS/Include/**"
         ]
       },
       "defines": [
-        "_DEBUG",
-        "UNICODE",
-        "_UNICODE",
         "USE_HAL_DRIVER",
         "STM32F103xE"
       ],

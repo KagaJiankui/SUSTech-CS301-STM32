@@ -53,7 +53,8 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-
+void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
+inline void modify_flag(uint8_t *flag_ptr, uint8_t flag_value);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
