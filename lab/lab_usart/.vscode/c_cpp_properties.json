@@ -30,7 +30,7 @@
       "cStandard": "c11",
       "cppStandard": "c++11",
       "configurationProvider": "ms-vscode.cmake-tools",
-      "compileCommands": "${workspaceFolder}/compile_commands.json",
+      "compileCommands": "${workspaceFolder:USART}/compile_commands.json",
       "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
     }
   ],

@@ -9,7 +9,7 @@
         "flash",
         "-t",
         "stm32f103rc",
-        "${workspaceFolder:USART}/build/RelWithDebInfo/lab_usart.elf"
+        "${workspaceFolder:USART}/build/Debug/lab_usart.elf"
       ],
       "presentation": {
         "reveal": "always"
