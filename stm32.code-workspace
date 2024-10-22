@@ -4,8 +4,8 @@
       "path": "."
     },
     {
-      "name": "lab_lcd",
-      "path": "lab/lab_lcd"
+      "name": "USART",
+      "path": "lab/lab_usart"
     }
   ],
   "settings": {
