@@ -89,7 +89,7 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)rxBuffer, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */

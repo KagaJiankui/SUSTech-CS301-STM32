@@ -27,7 +27,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "main.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -42,7 +42,7 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* USER CODE BEGIN EM */
-
+#define AT_CLR 0x111
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
@@ -59,7 +59,8 @@ void EXTI9_5_IRQHandler(void);
 void USART1_IRQHandler(void);
 void EXTI15_10_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-
+void ATVectorTableInit(uint8_t *ATTree);
+uint16_t SimpleATProcess(uint8_t *uRx_Data, uint8_t uLength);
 /* USER CODE END EFP */
 
 #ifdef __cplusplus
