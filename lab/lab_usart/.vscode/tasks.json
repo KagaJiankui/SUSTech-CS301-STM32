@@ -15,6 +15,18 @@
         "reveal": "always"
       },
       "group": "build"
+    },
+    {
+      "label": "objcopy to hex",
+      "command": "arm-none-eabi-objcopy",
+      "type": "shell",
+      "args": [
+        "-O",
+        "ihex",
+        "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
+        "${workspaceFolder:USART}/build/Debug/lab_usart.hex"
+      ],
+      "group": "build"
     }
   ]
 }

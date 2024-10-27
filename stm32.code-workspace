@@ -47,7 +47,8 @@
       "_newlib_version.h": "c",
       "stm32f1xx_it.h": "c",
       "usart.h": "c",
-      "compare": "c"
+      "compare": "c",
+      "string.h": "c"
     },
     "cSpell.words": [
       "cubef",
