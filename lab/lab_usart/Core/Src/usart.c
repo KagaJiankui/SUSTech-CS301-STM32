@@ -160,6 +160,9 @@ void FSM_Process(FSM *fsm, USARTRecvBuffer *rxBuffer) {
     if (rxBuffer->uBuffer[pBuffer] == '\0') {
       fsm->state = STATE_DONE;
     }
+    if (rxBuffer->uBuffer[pBuffer] == '\n') {
+      fsm->state = STATE_ECHO;
+    }
     switch (fsm->state) {
       case STATE_IDLE:
         if (rxBuffer->uBuffer[pBuffer] == 'A') {
@@ -182,13 +185,11 @@ void FSM_Process(FSM *fsm, USARTRecvBuffer *rxBuffer) {
         break;
       case STATE_CMD:
         if (fsm->cmdIndex < 4) {
-          bHEX(fsm->cmdBuffer.Buffer[fsm->cmdIndex++], rxBuffer->uBuffer[pBuffer]);
+          bHEX(fsm->cmdBuffer.Buffer[fsm->cmdIndex], rxBuffer->uBuffer[pBuffer]);
+          fsm->cmdIndex++;
         } else {
           fsm->cmdIndex = 0;
           fsm->state=STATE_IDLE;
-        }
-        if(rxBuffer->uBuffer[pBuffer] == '\n') {
-          fsm->state=STATE_ECHO;
         }
         break;
       case STATE_ECHO:

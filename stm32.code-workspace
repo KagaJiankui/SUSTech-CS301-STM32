@@ -4,8 +4,8 @@
       "path": "."
     },
     {
-      "name": "USART",
-      "path": "lab/lab_usart"
+      "name": "HAMMING",
+      "path": "lab/assign2"
     }
   ],
   "settings": {
