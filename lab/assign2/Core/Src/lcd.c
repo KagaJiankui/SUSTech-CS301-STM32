@@ -92,7 +92,7 @@ _lcd_dev lcddev;
 
 //写寄存器函数
 //data:寄存器值
-void LCD_WR_REG(uint16_t data) {
+inline void LCD_WR_REG(uint16_t data) {
 	LCD_RS_CLR;  //写地址
 	LCD_CS_CLR;
 	DATAOUT(data);
@@ -103,7 +103,7 @@ void LCD_WR_REG(uint16_t data) {
 //写数据函数
 //可以替代LCD_WR_DATAX宏,拿时间换空间.
 //data:寄存器值
-void LCD_WR_DATAX(uint16_t data) {
+inline void LCD_WR_DATAX(uint16_t data) {
 	LCD_RS_SET;
 	LCD_CS_CLR;
 	DATAOUT(data);
@@ -138,31 +138,31 @@ uint16_t LCD_RD_DATA(void) {
 //写寄存器
 //LCD_Reg:寄存器编号
 //LCD_RegValue:要写入的值
-void LCD_WriteReg(uint16_t LCD_Reg, uint16_t LCD_RegValue) {
+inline void LCD_WriteReg(uint16_t LCD_Reg, uint16_t LCD_RegValue) {
 	LCD_WR_REG(LCD_Reg);
 	LCD_WR_DATA(LCD_RegValue);
 }
 //读寄存器
 //LCD_Reg:寄存器编号
 //返回值:读到的值
-uint16_t LCD_ReadReg(uint16_t LCD_Reg) {
+inline uint16_t LCD_ReadReg(uint16_t LCD_Reg) {
 	LCD_WR_REG(LCD_Reg);  //写入要读的寄存器号
 	return LCD_RD_DATA();
 }
 //开始写GRAM
-void LCD_WriteRAM_Prepare(void) {
+inline void LCD_WriteRAM_Prepare(void) {
 	LCD_WR_REG(lcddev.wramcmd);
 }
 //LCD写GRAM
 //RGB_Code:颜色值
-void LCD_WriteRAM(uint16_t RGB_Code) {
+inline void LCD_WriteRAM(uint16_t RGB_Code) {
 	LCD_WR_DATA(RGB_Code);  //写十六位GRAM
 }
 //从ILI93xx读出的数据为GBR格式，而我们写入的时候为RGB格式。
 //通过该函数转换
 //c:GBR格式的颜色值
 //返回值：RGB格式的颜色值
-uint16_t LCD_BGR2RGB(uint16_t c) {
+inline uint16_t LCD_BGR2RGB(uint16_t c) {
 	uint16_t r, g, b, rgb;
 	b = (c >> 0) & 0x1f;
 	g = (c >> 5) & 0x3f;
@@ -172,7 +172,7 @@ uint16_t LCD_BGR2RGB(uint16_t c) {
 }
 //当mdk -O1时间优化时需要设置
 //延时i
-void opt_delay(uint8_t i) {
+inline void opt_delay(uint8_t i) {
 	while (i--)
 		;
 }

@@ -48,7 +48,8 @@
       "stm32f1xx_it.h": "c",
       "usart.h": "c",
       "compare": "c",
-      "string.h": "c"
+      "string.h": "c",
+      "type_traits": "cpp"
     },
     "cSpell.words": [
       "cubef",

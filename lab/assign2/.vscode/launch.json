@@ -6,7 +6,7 @@
   "configurations": [
     {
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
+      "executable": "${workspaceFolder:HAMMING}/build/Debug/lab_usart.elf",
       "name": "Cortex Debug",
       "request": "launch",
       "runToEntryPoint": "main",
@@ -23,24 +23,7 @@
     },
     {
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
-      "name": "OpenOCD-stlink",
-      "request": "launch",
-      "type": "cortex-debug",
-      "servertype": "openocd",
-      "configFiles": [
-        "interface/stlink-dap.cfg",
-        "target/stm32f1x.cfg"
-      ],
-      "searchDir": [],
-      "runToEntryPoint": "main",
-      "showDevDebugOutput": "none",
-      "svdPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STMicroelectronics_CMSIS_SVD/STM32F103.svd",
-      "targetId":"stm32f103rc"
-    },
-    {
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
+      "executable": "${workspaceFolder:HAMMING}/build/Debug/lab_usart.elf",
       "name": "OpenOCD-firedap",
       "request": "launch",
       "type": "cortex-debug",

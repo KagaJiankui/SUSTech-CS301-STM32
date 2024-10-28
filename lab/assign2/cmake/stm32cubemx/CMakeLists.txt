@@ -23,6 +23,7 @@ target_include_directories(stm32cubemx INTERFACE
 target_sources(stm32cubemx INTERFACE
     ../../Core/Src/main.c
     ../../Core/Src/gpio.c
+    ../../Core/Src/hamming.c
     ../../Core/Src/lcd.c
     ../../Core/Src/stm32f1xx_it.c
     ../../Core/Src/stm32f1xx_hal_msp.c
