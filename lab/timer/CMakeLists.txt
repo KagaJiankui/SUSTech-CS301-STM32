@@ -27,11 +27,29 @@ include("cmake/gcc-arm-none-eabi.cmake")
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-# Enable CMake support for ASM and C languages
-enable_language(C ASM)
+if(CMAKE_EXPORT_COMPILE_COMMANDS)
+    # This dreadful mess is to communicate to clang-tidy the C++ system includes. It seems that CMake
+    # doesn't support using its own compile_commands.json database, and that clang-tidy doesn't
+    # pick up non-default system headers.
+    string(LENGTH ${TOOLCHAIN_PREFIX} PREFIX_LENGTH)
+    MATH(EXPR PREFIX_LENGTH "${PREFIX_LENGTH}-1")
+    string(SUBSTRING ${TOOLCHAIN_PREFIX} 0 ${PREFIX_LENGTH} TOOLCHAIN_TRIPLE)
+    execute_process(
+            COMMAND cmd.exe /c ${CMAKE_C_COMPILER} -x c++ -Wp,-v 1 2>&1 | grep "^ .*${TOOLCHAIN_TRIPLE}.*"
+            OUTPUT_VARIABLE COMPILER_HEADERS
+            OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+    message(NOTICE "Find system includes: ${COMPILER_HEADERS}")
+    string(REGEX REPLACE "[ \n\t]+" ";" INCLUDE_COMPILER_HEADERS ${COMPILER_HEADERS})
+
+    set(CMAKE_C_STANDARD_INCLUDE_DIRECTORIES ${INCLUDE_COMPILER_HEADERS})
+    set(CMAKE_CXX_STANDARD_INCLUDE_DIRECTORIES ${INCLUDE_COMPILER_HEADERS})
+endif()
 
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
+# Enable CMake support for ASM and C languages
+enable_language(C ASM)
 message("Build type: " ${CMAKE_BUILD_TYPE})
 
 # Create an executable object type

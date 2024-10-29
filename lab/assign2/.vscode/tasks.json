@@ -2,14 +2,21 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "PyOCD flash",
-      "command": "pyocd",
+      "label": "OpenOCD flash",
+      "command": "openocd",
       "type": "shell",
       "args": [
-        "flash",
-        "-t",
-        "stm32f103rc",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.elf"
+        "-f",
+        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
+        "-f",
+        "target/stm32f1x.cfg",
+        "-c",
+        "\"program",
+        "${workspaceFolder:TIMER}/build/RelWithDebInfo/assign2.elf",
+        "0x80000000",
+        "verify",
+        "reset",
+        "exit\""
       ],
       "presentation": {
         "reveal": "always"

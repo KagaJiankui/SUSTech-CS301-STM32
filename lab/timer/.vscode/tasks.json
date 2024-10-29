@@ -2,6 +2,23 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "OpenOCD flash",
+      "command": "openocd",
+      "type": "shell",
+      "args": [
+        "-f",
+        "${workspaceFolder:stm32}/.vscode/stlink.cfg",
+        "-c",
+        "program ./build/Debug/timer.elf",
+        "-c",
+        "reset run; exit;"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
       "label": "PyOCD flash",
       "command": "pyocd",
       "type": "shell",
@@ -9,7 +26,7 @@
         "flash",
         "-t",
         "stm32f103rc",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.elf"
+        "${workspaceFolder:TIMER}/build/Debug/timer.elf"
       ],
       "presentation": {
         "reveal": "always"
@@ -23,8 +40,8 @@
       "args": [
         "-O",
         "ihex",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.hex"
+        "${workspaceFolder:TIMER}/build/Debug/timer.elf",
+        "${workspaceFolder:TIMER}/build/Debug/timer.hex"
       ],
       "group": "build"
     }

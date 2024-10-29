@@ -53,7 +53,9 @@
       "usart.h": "c",
       "compare": "c",
       "string.h": "c",
-      "type_traits": "cpp"
+      "type_traits": "cpp",
+      "stm32f1xx_hal_tim.h": "c",
+      "tim.h": "c"
     },
     "cSpell.words": [
       "cubef",
