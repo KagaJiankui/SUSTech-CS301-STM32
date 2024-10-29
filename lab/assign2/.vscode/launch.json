@@ -6,15 +6,15 @@
   "configurations": [
     {
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder:HAMMING}/build/Debug/lab_usart.elf",
-      "name": "Cortex Debug",
+      "executable": "${workspaceFolder:HAMMING}/build/RelWithDebInfo/assign2.elf",
+      "name": "Official STLink Debug",
       "request": "launch",
       "runToEntryPoint": "main",
       "servertype": "stlink",
       "svdPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STMicroelectronics_CMSIS_SVD/STM32F103.svd",
       "stlinkPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STLink-gdb-server/bin/ST-LINK_gdbserver.exe",
       "stm32cubeprogrammer": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STM32CubeProgrammer/bin",
-      "targetId":"stm32f103rc",
+      "targetId": "stm32f103rc",
       "type": "cortex-debug",
       "liveWatch": {
         "enabled": true,
@@ -23,20 +23,25 @@
     },
     {
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder:HAMMING}/build/Debug/lab_usart.elf",
-      "name": "OpenOCD-firedap",
+      "executable": "${workspaceFolder:HAMMING}/build/RelWithDebInfo/assign2.elf",
+      "name": "OpenOCD-daplink",
       "request": "launch",
       "type": "cortex-debug",
       "servertype": "openocd",
       "configFiles": [
-        "interface/cmsis-dap.cfg",
-        "target/stm32f1x.cfg"
+        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
       ],
       "searchDir": [],
       "runToEntryPoint": "main",
       "showDevDebugOutput": "none",
       "svdPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STMicroelectronics_CMSIS_SVD/STM32F103.svd",
-      "targetId":"stm32f103rc"
+      "targetId": "stm32f103rc",
+      "preLaunchCommands": [
+        "set charset UTF-8",
+      ],
+      "postResetCommands": [
+        "set charset UTF-8",
+      ]
     }
   ]
 }

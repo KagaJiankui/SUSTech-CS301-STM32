@@ -1,4 +1,6 @@
 {
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
   "version": "2.0.0",
   "tasks": [
     {
@@ -17,6 +19,33 @@
         "reveal": "always"
       },
       "group": "build"
+    },
+    {
+      "label": "OpenOCD Process Create (CMSIS-DAP)",
+      "command": "openocd",
+      "type": "shell",
+      "args": [
+        "-f",
+        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
+        "-s",
+        "${workspaceFolder:TIMER}",
+        "-c",
+        "gdb port 50000",
+        "-c",
+        "tcl port 50001",
+        "-c",
+        "telnet_port 50002"
+      ],
+      "presentation": {
+        "reveal": "revealProblems"
+      },
+      "group": "none",
+      "isBackground": true,
+      "background": {
+        "activeOnStart": true,
+        "beginsPattern": "^adapter\\sspeed:\\s\\d+\\s\\w+$",
+        "endsPattern": "^.*Listening\\s.*\\sport\\s\\d+\\s.*$"
+      }
     },
     {
       "label": "PyOCD flash",

@@ -21,7 +21,9 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "hamming.h"
 #include "main.h"
+#include "stm32f1xx_hal.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -41,7 +43,9 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
+extern uint8_t main_status;
+extern HammingMessage hammingMsg;
+extern uint8_t flag_LCDclean;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -204,11 +208,36 @@ void SysTick_Handler(void)
 void EXTI0_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI0_IRQn 0 */
-
+  HAL_Delay(150);
   /* USER CODE END EXTI0_IRQn 0 */
-  custom_HAL_GPIO_EXTI_IRQHandler(KEY_WAKEUP_Pin);
-  /* USER CODE BEGIN EXTI0_IRQn 1 */
 
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+  if (__HAL_GPIO_EXTI_GET_IT(KEY_WAKEUP_Pin) != 0x00u) {
+    if (main_status == ENCODE) {
+      HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+      HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+      HAL_Delay(60);
+      HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+      HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+      HAL_Delay(60);
+    } else {
+      for (uint8_t i = 0; i < 2; i++) {
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
+        HAL_Delay(60);
+        HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+        HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
+        HAL_Delay(120);
+      }
+    }
+    main_status = ~main_status & 0x1;
+    flag_LCDclean = DIRTY;
+    hammingMsg.message = 0;
+    hammingMsg.encoded = 0;
+    hammingMsg.parity = 0;
+    hammingMsg.pBit = 0;
+  }
+  __HAL_GPIO_EXTI_CLEAR_IT(KEY_WAKEUP_Pin);
   /* USER CODE END EXTI0_IRQn 1 */
 }
 
@@ -218,11 +247,28 @@ void EXTI0_IRQHandler(void)
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
-
+  HAL_Delay(150);
   /* USER CODE END EXTI9_5_IRQn 0 */
-  custom_HAL_GPIO_EXTI_IRQHandler(KEY1_Pin);
-  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
 
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+  if (__HAL_GPIO_EXTI_GET_IT(KEY0_Pin)) {
+    if (main_status == ENCODE) {
+      hammingMsg.message <<= 1;
+      hammingMsg.message &= (~0x01);
+      hammingMsg.message &= 0x0F;
+      hammingMsg.pBit = (hammingMsg.pBit > 3) ? 0 : hammingMsg.pBit + 1;
+      hammingMsg.encoded = HammingEncode(hammingMsg.message);
+    } else {
+      hammingMsg.encoded <<= 1;
+      hammingMsg.encoded &= (~0x01);
+      hammingMsg.encoded &= 0x7F;
+      hammingMsg.pBit = (hammingMsg.pBit > 6) ? 0 : hammingMsg.pBit + 1;
+      hammingMsg.message = GETRAW(hammingMsg.encoded);
+      hammingMsg.parity = HammingParityCheck(hammingMsg.encoded);
+      hammingFEC(&hammingMsg);
+    }
+  }
+  __HAL_GPIO_EXTI_CLEAR_IT(KEY0_Pin);
   /* USER CODE END EXTI9_5_IRQn 1 */
 }
 
@@ -232,14 +278,34 @@ void EXTI9_5_IRQHandler(void)
 void EXTI15_10_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI15_10_IRQn 0 */
-
+  HAL_Delay(150);
   /* USER CODE END EXTI15_10_IRQn 0 */
-  custom_HAL_GPIO_EXTI_IRQHandler(KEY0_Pin);
-  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
 
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+  if (__HAL_GPIO_EXTI_GET_IT(KEY1_Pin)) {
+    if (main_status == ENCODE) {
+      hammingMsg.message <<= 1;
+      hammingMsg.message |= 1;
+      hammingMsg.message &= 0x0F;
+      hammingMsg.pBit = (hammingMsg.pBit > 3) ? 0 : hammingMsg.pBit + 1;
+      hammingMsg.encoded = HammingEncode(hammingMsg.message);
+    } else {
+      hammingMsg.encoded <<= 1;
+      hammingMsg.encoded |= 1;
+      hammingMsg.encoded &= 0x7F;
+      hammingMsg.pBit = (hammingMsg.pBit > 6) ? 0 : hammingMsg.pBit + 1;
+      hammingMsg.parity = HammingParityCheck(hammingMsg.encoded);
+      hammingFEC(&hammingMsg);
+    }
+  }
+  __HAL_GPIO_EXTI_CLEAR_IT(KEY1_Pin);
   /* USER CODE END EXTI15_10_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
-
+void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin) {
+  if (__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != 0x00u) {
+    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
+  }
+}
 /* USER CODE END 1 */

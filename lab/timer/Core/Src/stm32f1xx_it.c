@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
+#include "lcd.h"
 #include "main.h"
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
@@ -208,9 +209,11 @@ void EXTI0_IRQHandler(void)
   if (__HAL_GPIO_EXTI_GET_IT(KEY_WAKEUP_Pin) != 0x00u) {
     __HAL_GPIO_EXTI_CLEAR_IT(KEY_WAKEUP_Pin);
     countNumber = 0;
+    uintToDecString(countNumber, 15, 20, msgString);
+    HAL_GPIO_TogglePin(GPIOA, LED0_Pin);
   }
   /* USER CODE END EXTI0_IRQn 0 */
-  HAL_GPIO_EXTI_IRQHandler(KEY_WAKEUP_Pin);
+
   /* USER CODE BEGIN EXTI0_IRQn 1 */
 
   /* USER CODE END EXTI0_IRQn 1 */
@@ -236,24 +239,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     uintToDecString(countNumber, 15, 20, msgString);
     HAL_GPIO_TogglePin(GPIOA, LED0_Pin);
     if (countNumber > 0x01FF) {
-      cleanLCD();
+      LCD_Fill(30, 40, 250, 60, WHITE);
       countNumber = 0;
     } else {
       countNumber++;
     }
   }
-}
-
-void cleanLCD(void){
-  HAL_Delay(75);
-  LCD_Clear(WHITE);
-  HAL_Delay(25);
-}
-
-void updateLCDString(uint8_t *str) {
-  BACK_COLOR = WHITE;
-  POINT_COLOR = BLACK;
-  LCD_ShowString(30,40,200,12,12,str);
 }
 
 /**

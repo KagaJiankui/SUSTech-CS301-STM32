@@ -55,7 +55,9 @@
       "string.h": "c",
       "type_traits": "cpp",
       "stm32f1xx_hal_tim.h": "c",
-      "tim.h": "c"
+      "tim.h": "c",
+      "hamming.h": "c",
+      "cstdint": "c"
     },
     "cSpell.words": [
       "cubef",

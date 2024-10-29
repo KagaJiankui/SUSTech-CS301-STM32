@@ -14,7 +14,7 @@
       "svdPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STMicroelectronics_CMSIS_SVD/STM32F103.svd",
       "stlinkPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STLink-gdb-server/bin/ST-LINK_gdbserver.exe",
       "stm32cubeprogrammer": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STM32CubeProgrammer/bin",
-      "targetId":"stm32f103rc",
+      "targetId": "stm32f103rc",
       "type": "cortex-debug",
       "liveWatch": {
         "enabled": true,
@@ -35,13 +35,26 @@
       "runToEntryPoint": "main",
       "showDevDebugOutput": "none",
       "svdPath": "D:/embedded_toolchains/STM32CubeCLT_1.16.0/STMicroelectronics_CMSIS_SVD/STM32F103.svd",
-      "targetId":"stm32f103rc",
+      "targetId": "stm32f103rc",
       "preLaunchCommands": [
         "set charset UTF-8",
       ],
       "postResetCommands": [
         "set charset UTF-8",
       ]
+    },
+    {
+      "name": "LLDB Attach (CMSIS-DAP)",
+      "type": "lldb",
+      "request": "custom",
+      "targetCreateCommands": [
+        "target create ${workspaceFolder:TIMER}/build/Debug/timer.elf"
+      ],
+      "processCreateCommands": [
+        "gdb-remote localhost:50000"
+      ],
+      "breakpointMode": "path",
+      "preLaunchTask": "OpenOCD Process Create (CMSIS-DAP)",
     }
   ]
 }

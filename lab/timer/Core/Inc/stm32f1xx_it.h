@@ -60,8 +60,6 @@ void SysTick_Handler(void);
 void EXTI0_IRQHandler(void);
 void TIM3_IRQHandler(void);
 /* USER CODE BEGIN EFP */
-void updateLCDString(uint8_t *str);
-void cleanLCD(void);
 void uintToDecString(uint16_t num, uint8_t pStrStart, uint8_t pStrEnd, uint8_t* str);
 /* USER CODE END EFP */
 

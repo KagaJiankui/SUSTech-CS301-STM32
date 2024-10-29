@@ -20,13 +20,10 @@
 #include "main.h"
 
 #include "gpio.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "hamming.h"
 #include "lcd.h"
-#include "stm32f103xe.h"
-#include "stm32f1xx_hal.h"
-#include "stm32f1xx_hal_gpio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,22 +44,20 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+volatile uint8_t main_status = ENCODE;
+volatile uint8_t flag_LCDclean = 0;
+HammingMessage hammingMsg = {0, 0, 0, 0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
-void uintToBinString(uint8_t num, uint8_t len, uint8_t *str);
-inline void modify_flag(uint8_t *flag_ptr, uint8_t flag_value);
-void toggleLed(GPIO_TypeDef *GPIOx, uint8_t GPIO_Pin, uint8_t cycles, uint8_t delayMs);
-
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-volatile uint8_t flag_display = 0;
+
 /* USER CODE END 0 */
 
 /**
@@ -88,12 +83,11 @@ int main(void) {
 
   /* USER CODE BEGIN SysInit */
   LCD_Init();
-  uint8_t str_keywkup[22] = "KEY_WAKEUP is pressed";
-  uint8_t str_key0[16] = "KEY0 is pressed";
-  uint8_t str_key1[16] = "KEY1 is pressed";
-  uint8_t str_standby[24] = "Listening KEY interrupt";
-  uint8_t *msg_array[4] = {str_standby, str_keywkup, str_key0, str_key1};
-  uint8_t cached_flag_display = flag_display;
+  uint8_t msgOriginal[23] = "Original Message: ";
+  uint8_t msgEncoded[22] = "Hamming Code: ";
+  uint8_t msgDecoded[22] = "Decoded Message: ";
+  uint8_t parityInfo[15] = "Error in bit ";
+  uint8_t *statusString[] = {(uint8_t *)"ENCODING MODE", (uint8_t *)"DECODING MODE"};
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -108,16 +102,31 @@ int main(void) {
   BACK_COLOR = WHITE;
   POINT_COLOR = BLACK;
   while (1) {
+    if (flag_LCDclean == DIRTY) {
+      LCD_Clear(WHITE);
+      flag_LCDclean = CLEAN;
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    if (cached_flag_display != flag_display) {
-      LCD_Clear(WHITE);
-      BACK_COLOR = WHITE;
-      POINT_COLOR = BLACK;
+    LCD_ShowString(48, 10, 200, 24, 24, statusString[main_status]);
+    if (main_status == ENCODE) {
+      uintToBinString(hammingMsg.message, 18, 22, msgOriginal);
+      uintToBinString(hammingMsg.encoded, 14, 21, msgEncoded);
+      LCD_ShowString(10, 40, 200, 12, 12, msgOriginal);
+      LCD_ShowString(10, 70, 200, 12, 12, msgEncoded);
+    } else if (main_status == DECODE) {
+      uintToBinString(hammingMsg.encoded, 14, 21, msgEncoded);
+      uintToBinString(hammingMsg.message, 17, 21, msgDecoded);
+      LCD_ShowString(10, 40, 200, 12, 12, msgEncoded);
+      LCD_ShowString(10, 70, 200, 12, 12, msgDecoded);
+      if (hammingMsg.parity) {
+        parityInfo[13] = '0' + hammingMsg.parity;
+        LCD_ShowString(10, 100, 200, 12, 12, parityInfo);
+      } else {
+        LCD_ShowString(10, 100, 200, 12, 12, (uint8_t *)"No error detected");
+      }
     }
-    LCD_ShowString(30, 40, 200, 12, 12, msg_array[flag_display]);
-    cached_flag_display = flag_display;
     /* USER CODE END 3 */
   }
 }
@@ -158,79 +167,7 @@ void SystemClock_Config(void) {
 }
 
 /* USER CODE BEGIN 4 */
-void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin) {
-  if (__HAL_GPIO_EXTI_GET_IT(GPIO_Pin) != 0x00u) {
-    HAL_Delay(75);
-    __HAL_GPIO_EXTI_CLEAR_IT(GPIO_Pin);
-    LCD_Fill(30, 40, 320, 52, WHITE);
-    HAL_Delay(25);
-    switch (GPIO_Pin) {
-      case KEY_WAKEUP_Pin:
-        modify_flag(&flag_display, 1);
-        break;
-      case KEY0_Pin:
-        modify_flag(&flag_display, 2);
-        break;
-      case KEY1_Pin:
-        modify_flag(&flag_display, 3);
-        break;
-      default:
-        break;
-    }
-  }
-}
 
-inline void modify_flag(uint8_t *flag_ptr, uint8_t flag_value) {
-  if (*flag_ptr != flag_value) *flag_ptr = flag_value;
-}
-
-/**
- * @brief Converts a uint8_t number to a binary string with a specified length. This function works by looping through the bits of the number from
-most significant to least significant bit.
- *
- * For each bit, the function sets the corresponding character in the string to '0' or '1', and then shifts the number right to move to the next bit.
-If the length of the string is less than 8 or greater than 1, the function will not modify the string.
- *
- * @param[in] num: The number to convert.
- * @param[in] len: The length of the binary string. Must be between 1 and 8.
- * @param[out] str: The binary string.
- */
-void uintToBinString(uint8_t num, uint8_t len, uint8_t *str) {
-  if (len < 8 && len > 0) {
-    for (uint8_t i = len - 1; i >= 0; i--) {
-      str[i] = (num & 1) + '0';
-      num >>= 1;
-    }
-  } else {
-    return;
-  }
-}
-
-/**
- * @brief Toggle a GPIO pin a specified number of times at a specified delay. Extracted all necessary functions from HAL library to minimize the
-expense for function invocations.
- *
- * @param[in] GPIOx: GPIO port to use (e.g. GPIOA, GPIOB, ...)
- * @param[in] GPIO_Pin: Pin number to toggle (0-15)
- * @param[in] cycles: Number of times to toggle the pin
- * @param[in] delayMs: Delay in milliseconds between toggles
- */
-void toggleLed(GPIO_TypeDef *GPIOx, uint8_t GPIO_Pin, uint8_t cycles, uint8_t delayMs) {
-  uint32_t odr;
-  if (IS_GPIO_PIN(GPIO_Pin)) {
-    uint32_t tickstart = uwTick;
-    uint32_t wait = delayMs;
-    for (uint8_t i = 0; i < cycles; i++) {
-      odr = GPIOx->ODR;
-      GPIOx->BSRR = ((odr & GPIO_Pin) << 0x10) | (~odr & GPIO_Pin);
-      if (wait < HAL_MAX_DELAY) {
-        wait += (uint32_t)(uwTickFreq);
-      }
-      while ((uwTick - tickstart) < wait) {
-      }
-    }
-  }
-}
 /* USER CODE END 4 */
 
 /**

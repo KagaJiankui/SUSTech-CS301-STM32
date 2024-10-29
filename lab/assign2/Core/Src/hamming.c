@@ -9,6 +9,8 @@
  *
  */
 
+#include "hamming.h"
+
 #include "main.h"
 
 /**
@@ -60,10 +62,53 @@ uint8_t HammingParityCheck(uint8_t encoded) {
   //  temp_1=[    h1, h2,         h5, h6]
   //  temp_2=[            h3, h4, h5, h6]
   uint8_t check_bit0 = ((0x40 & encoded) >> 3) | ((0x10 & encoded) >> 2) | ((0x04 & encoded) >> 1) | (0x01 & encoded);
-  uint8_t check_bit1 = ((0x20 & encoded) >> 2) | ((0x10 & encoded) >> 2) | ((0x02 & encoded) >> 1) | (0x01 & encoded);
+  uint8_t check_bit1 = ((0x20 & encoded) >> 2) | ((0x10 & encoded) >> 2) | (0x03 & encoded);
   uint8_t check_bit2 = 0x0F & encoded;
-  SETBIT(parity, 0, XOR_LUT(check_bit0));
-  SETBIT(parity, 1, XOR_LUT(check_bit1));
-  SETBIT(parity, 2, XOR_LUT(check_bit2));
-  return HAMMING_MASK3 - parity;
+  SETBIT(parity, 2, (((XOR_TT) & (1 << check_bit0)) != 0));
+  SETBIT(parity, 1, (((XOR_TT) & (1 << check_bit1)) != 0));
+  SETBIT(parity, 0, (((XOR_TT) & (1 << check_bit2)) != 0));
+  return parity;
+}
+
+/**
+ * @brief Corrects errors in a Hamming encoded message if any are detected.
+ *
+ * This function checks the parity of a given Hamming encoded message
+ * and corrects errors by flipping the bit at the position indicated by
+ * the parity value, if the parity is non-zero. After correction, it
+ * extracts the raw message bits from the encoded message.
+ *
+ * @param hHammingMsg A pointer to the HammingMessage structure containing
+ *                    the encoded message, parity bit information, and
+ *                    other related data.
+ */
+void hammingFEC(HammingMessage* hHammingMsg) {
+  uint8_t encoded_temp = hHammingMsg->encoded;
+  if (hHammingMsg->parity != 0) {
+    encoded_temp ^= (0x01 << hHammingMsg->parity);
+  }
+  hHammingMsg->message = GETRAW(encoded_temp);
+}
+
+/**
+ * @brief Converts a uint8_t number to a binary string with a specified length. This function works by looping through the bits of the number from
+most significant to least significant bit.
+ *
+ * For each bit, the function sets the corresponding character in the string to '0' or '1', and then shifts the number right to move to the next bit.
+If the length of the string is less than 8 or greater than 1, the function will not modify the string.
+ *
+ * @param[in] num: The number to convert.
+ * @param[in] len: The length of the binary string. Must be between 1 and 8.
+ * @param[out] str: The binary string.
+ */
+void uintToBinString(uint8_t num, uint8_t pStrStart, uint8_t pStrEnd, uint8_t* str) {
+  uint8_t len = pStrEnd - pStrStart;
+  if (len < 8 && len > 0) {
+    for (uint8_t i = 0; i < len; i++) {
+      str[pStrEnd - i - 1] = (num & 1) + '0';
+      num >>= 1;
+    }
+  } else {
+    return;
+  }
 }

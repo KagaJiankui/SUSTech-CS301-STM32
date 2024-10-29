@@ -27,40 +27,40 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "main.h"
+ /* USER CODE END Includes */
 
-/* USER CODE END Includes */
+ /* Exported types ------------------------------------------------------------*/
+ /* USER CODE BEGIN ET */
 
-/* Exported types ------------------------------------------------------------*/
-/* USER CODE BEGIN ET */
+ /* USER CODE END ET */
 
-/* USER CODE END ET */
+ /* Exported constants --------------------------------------------------------*/
+ /* USER CODE BEGIN EC */
 
-/* Exported constants --------------------------------------------------------*/
-/* USER CODE BEGIN EC */
+ /* USER CODE END EC */
 
-/* USER CODE END EC */
+ /* Exported macro ------------------------------------------------------------*/
+ /* USER CODE BEGIN EM */
 
-/* Exported macro ------------------------------------------------------------*/
-/* USER CODE BEGIN EM */
+ /* USER CODE END EM */
 
-/* USER CODE END EM */
-
-/* Exported functions prototypes ---------------------------------------------*/
-void NMI_Handler(void);
-void HardFault_Handler(void);
-void MemManage_Handler(void);
-void BusFault_Handler(void);
-void UsageFault_Handler(void);
-void SVC_Handler(void);
-void DebugMon_Handler(void);
-void PendSV_Handler(void);
-void SysTick_Handler(void);
-void EXTI0_IRQHandler(void);
-void EXTI9_5_IRQHandler(void);
-void EXTI15_10_IRQHandler(void);
-/* USER CODE BEGIN EFP */
-
-/* USER CODE END EFP */
+ /* Exported functions prototypes ---------------------------------------------*/
+ void NMI_Handler(void);
+ void HardFault_Handler(void);
+ void MemManage_Handler(void);
+ void BusFault_Handler(void);
+ void UsageFault_Handler(void);
+ void SVC_Handler(void);
+ void DebugMon_Handler(void);
+ void PendSV_Handler(void);
+ void SysTick_Handler(void);
+ void EXTI0_IRQHandler(void);
+ void EXTI9_5_IRQHandler(void);
+ void EXTI15_10_IRQHandler(void);
+ /* USER CODE BEGIN EFP */
+ void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
+ /* USER CODE END EFP */
 
 #ifdef __cplusplus
 }

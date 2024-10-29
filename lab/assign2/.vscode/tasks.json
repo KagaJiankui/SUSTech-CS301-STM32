@@ -8,15 +8,25 @@
       "args": [
         "-f",
         "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
-        "-f",
-        "target/stm32f1x.cfg",
         "-c",
-        "\"program",
-        "${workspaceFolder:TIMER}/build/RelWithDebInfo/assign2.elf",
-        "0x80000000",
-        "verify",
-        "reset",
-        "exit\""
+        "program ./build/RelWithDebInfo/assign2.elf",
+        "-c",
+        "reset run; exit;"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "PyOCD flash",
+      "command": "pyocd",
+      "type": "shell",
+      "args": [
+        "flash",
+        "-t",
+        "stm32f103rc",
+        "${workspaceFolder:HAMMING}/build/RelWithDebInfo/assign2.elf"
       ],
       "presentation": {
         "reveal": "always"
@@ -30,8 +40,8 @@
       "args": [
         "-O",
         "ihex",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.elf",
-        "${workspaceFolder:USART}/build/Debug/lab_usart.hex"
+        "${workspaceFolder:HAMMING}/build/RelWithDebInfo/assign2.elf",
+        "${workspaceFolder:HAMMING}/build/RelWithDebInfo/assign2.hex"
       ],
       "group": "build"
     }

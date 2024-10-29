@@ -31,7 +31,7 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "hamming.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -53,7 +53,7 @@ extern "C" {
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
@@ -72,14 +72,15 @@ void custom_HAL_GPIO_EXTI_IRQHandler(uint16_t GPIO_Pin);
 #define LED1_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
+
 typedef struct {
-  uint8_t message;
-  uint8_t encoded;
-  uint8_t parity;
-} HammingMessage;
+  uint8_t* str;
+  uint8_t fullLength;
+  uint8_t constLength;
+} ezString;
 
 enum MainStatus { ENCODE = 0, DECODE = 1 };
-uint8_t main_status;
+enum IsLCDDirty { CLEAN = 0, DIRTY = 1 };
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

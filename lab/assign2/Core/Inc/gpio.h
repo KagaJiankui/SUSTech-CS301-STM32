@@ -39,11 +39,11 @@ extern "C" {
 void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
-
+inline void modify_flag(uint8_t *flag_ptr, uint8_t flag_value);
+void toggleLed(GPIO_TypeDef *GPIOx, uint8_t GPIO_Pin, uint8_t cycles, uint8_t delayMs);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
 }
 #endif
 #endif /*__ GPIO_H__ */
-

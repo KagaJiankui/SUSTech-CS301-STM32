@@ -22,7 +22,7 @@
 #include "gpio.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "lcd.h"
 /* USER CODE END 0 */
 
 /*----------------------------------------------------------------------------*/
@@ -100,5 +100,33 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+inline void modify_flag(uint8_t *flag_ptr, uint8_t flag_value) {
+  if (*flag_ptr != flag_value) *flag_ptr = flag_value;
+}
 
+/**
+ * @brief Toggle a GPIO pin a specified number of times at a specified delay. Extracted all necessary functions from HAL library to minimize the
+expense for function invocations.
+ *
+ * @param[in] GPIOx: GPIO port to use (e.g. GPIOA, GPIOB, ...)
+ * @param[in] GPIO_Pin: Pin number to toggle (0-15)
+ * @param[in] cycles: Number of times to toggle the pin
+ * @param[in] delayMs: Delay in milliseconds between toggles
+ */
+void toggleLed(GPIO_TypeDef *GPIOx, uint8_t GPIO_Pin, uint8_t cycles, uint8_t delayMs) {
+  uint32_t odr;
+  if (IS_GPIO_PIN(GPIO_Pin)) {
+    uint32_t tickstart = uwTick;
+    uint32_t wait = delayMs;
+    for (uint8_t i = 0; i < cycles; i++) {
+      odr = GPIOx->ODR;
+      GPIOx->BSRR = ((odr & GPIO_Pin) << 0x10) | (~odr & GPIO_Pin);
+      if (wait < HAL_MAX_DELAY) {
+        wait += (uint32_t)(uwTickFreq);
+      }
+      while ((uwTick - tickstart) < wait) {
+      }
+    }
+  }
+}
 /* USER CODE END 2 */

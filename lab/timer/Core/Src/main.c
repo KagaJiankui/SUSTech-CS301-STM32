@@ -105,7 +105,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    updateLCDString(msgString);
+    LCD_ShowString(30, 40, 200, 12, 12, msgString);
   }
   /* USER CODE END 3 */
 }
