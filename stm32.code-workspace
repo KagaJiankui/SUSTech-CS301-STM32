@@ -6,6 +6,10 @@
     {
       "name": "HAMMING",
       "path": "lab/assign2"
+    },
+    {
+      "name": "TIMER",
+      "path": "lab/timer"
     }
   ],
   "settings": {
