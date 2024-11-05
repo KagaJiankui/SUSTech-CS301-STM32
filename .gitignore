@@ -14,3 +14,4 @@ lab/*/compile_commands.json
 lab/*/*_dist.md
 !pwm_calc
 !pwm_calc/*.ipynb
+!readme.md
