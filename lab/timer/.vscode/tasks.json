@@ -21,44 +21,46 @@
       "group": "build"
     },
     {
-      "label": "OpenOCD Process Create (CMSIS-DAP)",
-      "command": "openocd",
+      "label": "STM32CubeProg flash",
+      "command": "STM32_Programmer_CLI",
       "type": "shell",
       "args": [
-        "-f",
-        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
-        "-s",
-        "${workspaceFolder:TIMER}",
         "-c",
-        "gdb port 50000",
-        "-c",
-        "tcl port 50001",
-        "-c",
-        "telnet_port 50002"
-      ],
-      "presentation": {
-        "reveal": "revealProblems"
-      },
-      "group": "none",
-      "isBackground": true,
-      "background": {
-        "activeOnStart": true,
-        "beginsPattern": "^adapter\\sspeed:\\s\\d+\\s\\w+$",
-        "endsPattern": "^.*Listening\\s.*\\sport\\s\\d+\\s.*$"
-      }
-    },
-    {
-      "label": "PyOCD flash",
-      "command": "pyocd",
-      "type": "shell",
-      "args": [
-        "flash",
-        "-t",
-        "stm32f103rc",
-        "${workspaceFolder:TIMER}/build/Debug/timer.elf"
+        "port=SWD",
+        "-d",
+        "${workspaceFolder:TIMER}/build/Debug/timer.elf",
+        "-v",
+        "-g",
+        "0x8000000"
       ],
       "presentation": {
         "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "st-util-open-port",
+      "command": "st-util",
+      "type": "shell",
+      "args": [
+        "-n",
+        "--listen_port=50000",
+        "--freq=4000k",
+        "-m"
+      ],
+      "dependsOn": [
+        "STM32CubeProg flash"
+      ],
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^st-util\\s.$",
+          "endsPattern": "^(\\d+)-.*Listening\\sat\\s\\*:\\d+.*$"
+        }
       },
       "group": "build"
     },

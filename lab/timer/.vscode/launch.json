@@ -22,6 +22,19 @@
       }
     },
     {
+      "type": "lldb",
+      "request": "custom",
+      "name": "lldb debug with st-util",
+      "targetCreateCommands": [
+        "target create ${workspaceFolder:TIMER}/build/Debug/timer.elf"
+      ],
+      "processCreateCommands": [
+        "gdb-remote 50000"
+      ],
+      "preLaunchTask": "st-util-open-port",
+      "breakpointMode": "path"
+    },
+    {
       "cwd": "${workspaceRoot}",
       "executable": "${workspaceFolder:TIMER}/build/Debug/timer.elf",
       "name": "OpenOCD-stlink",
@@ -42,19 +55,6 @@
       "postResetCommands": [
         "set charset UTF-8",
       ]
-    },
-    {
-      "name": "LLDB Attach (CMSIS-DAP)",
-      "type": "lldb",
-      "request": "custom",
-      "targetCreateCommands": [
-        "target create ${workspaceFolder:TIMER}/build/Debug/timer.elf"
-      ],
-      "processCreateCommands": [
-        "gdb-remote localhost:50000"
-      ],
-      "breakpointMode": "path",
-      "preLaunchTask": "OpenOCD Process Create (CMSIS-DAP)",
     }
   ]
 }
