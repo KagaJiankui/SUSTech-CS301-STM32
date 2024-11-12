@@ -8,8 +8,8 @@
       "path": "lab/assign2"
     },
     {
-      "name": "TIMER",
-      "path": "lab/timer"
+      "name": "WWDG",
+      "path": "lab/watchdog_wwdg"
     }
   ],
   "settings": {

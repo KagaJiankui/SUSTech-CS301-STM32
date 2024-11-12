@@ -1,0 +1,49 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "OpenOCD flash",
+      "command": "openocd",
+      "type": "shell",
+      "args": [
+        "-f",
+        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
+        "-c",
+        "program ./build/Debug/watchdog_wwdg.elf",
+        "-c",
+        "reset run; exit;"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "PyOCD flash",
+      "command": "pyocd",
+      "type": "shell",
+      "args": [
+        "flash",
+        "-t",
+        "stm32f103rc",
+        "${workspaceFolder:WWDG}/build/Debug/watchdog_wwdg.elf"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "objcopy to hex",
+      "command": "arm-none-eabi-objcopy",
+      "type": "shell",
+      "args": [
+        "-O",
+        "ihex",
+        "${workspaceFolder:WWDG}/build/Debug/watchdog_wwdg.elf",
+        "${workspaceFolder:WWDG}/build/Debug/watchdog_wwdg.hex"
+      ],
+      "group": "build"
+    }
+  ]
+}
