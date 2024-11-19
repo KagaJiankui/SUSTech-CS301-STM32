@@ -1,38 +1,37 @@
 #ifndef _MYIIC_H
 #define _MYIIC_H
 #include "sys.h"
-//////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32F103¿ª·¢°å
-//IICÇý¶¯´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2017/6/13
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
-//All rights reserved									  
-////////////////////////////////////////////////////////////////////////////////// 	
-//IO·½ÏòÉèÖÃ
-#define SDA_IN()  {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=(u32)8<<12;}	//PC12ÊäÈëÄ£Ê½
-#define SDA_OUT() {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=(u32)3<<12;} 	//PC12Êä³öÄ£Ê½
+//////////////////////////////////////////////////////////////////////////////////
+// æœ¬ç¨‹åºåªä¾›å­¦ä¹ ä½¿ç”¨ï¼Œæœªç»ä½œè€…è®¸å¯ï¼Œä¸å¾—ç”¨äºŽå…¶å®ƒä»»ä½•ç”¨é€”
+// ALIENTEK STM32F103å¼€å‘æ¿
+// IICé©±åŠ¨ä»£ç 
+// æ­£ç‚¹åŽŸå­@ALIENTEK
+// æŠ€æœ¯è®ºå›:www.openedv.com
+// åˆ›å»ºæ—¥æœŸ:2017/6/13
+// ç‰ˆæœ¬ï¼šV1.0
+// ç‰ˆæƒæ‰€æœ‰ï¼Œç›—ç‰ˆå¿…ç©¶ã€‚
+// Copyright(C) å¹¿å·žå¸‚æ˜Ÿç¿¼ç”µå­ç§‘æŠ€æœ‰é™å…¬å¸ 2014-2024
+// All rights reserved
+//////////////////////////////////////////////////////////////////////////////////
+// IOæ–¹å‘è®¾ç½®
+#define SDA_IN()  {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=(u32)8<<12;}	//PC12è¾“å…¥æ¨¡å¼
+#define SDA_OUT() {GPIOC->CRH&=0XFFFF0FFF;GPIOC->CRH|=(u32)3<<12;} 	//PC12è¾“å‡ºæ¨¡å¼
 
-//IO²Ù×÷
+//IOæ“ä½œ
 #define IIC_SCL   PCout(12) //SCL
 #define IIC_SDA   PCout(11) //SDA
-#define READ_SDA  PCin(11)  //ÊäÈëSDA
+#define READ_SDA  PCin(11)  //è¾“å…¥SDA
 
-//IICËùÓÐ²Ù×÷º¯Êý
-void IIC_Init(void);                //³õÊ¼»¯IICµÄIO¿Ú				 
-void IIC_Start(void);				//·¢ËÍIIC¿ªÊ¼ÐÅºÅ
-void IIC_Stop(void);	  			//·¢ËÍIICÍ£Ö¹ÐÅºÅ
-void IIC_Send_Byte(u8 txd);			//IIC·¢ËÍÒ»¸ö×Ö½Ú
-u8 IIC_Read_Byte(unsigned char ack);//IIC¶ÁÈ¡Ò»¸ö×Ö½Ú
-u8 IIC_Wait_Ack(void); 				//IICµÈ´ýACKÐÅºÅ
-void IIC_Ack(void);					//IIC·¢ËÍACKÐÅºÅ
-void IIC_NAck(void);				//IIC²»·¢ËÍACKÐÅºÅ
+//IICæ‰€æœ‰æ“ä½œå‡½æ•°
+void IIC_Init(void);                            // åˆå§‹åŒ–IICçš„IOå£
+void IIC_Start(void);				//å‘é€IICå¼€å§‹ä¿¡å·
+void IIC_Stop(void);	  			//å‘é€IICåœæ­¢ä¿¡å·
+void IIC_Send_Byte(u8 txd);			//IICå‘é€ä¸€ä¸ªå­—èŠ‚
+u8 IIC_Read_Byte(unsigned char ack);//IICè¯»å–ä¸€ä¸ªå­—èŠ‚
+u8 IIC_Wait_Ack(void); 				//IICç­‰å¾…ACKä¿¡å·
+void IIC_Ack(void);					//IICå‘é€ACKä¿¡å·
+void IIC_NAck(void);				//IICä¸å‘é€ACKä¿¡å·
 
 void IIC_Write_One_Byte(u8 daddr,u8 addr,u8 data);
-u8 IIC_Read_One_Byte(u8 daddr,u8 addr);	 
+u8 IIC_Read_One_Byte(u8 daddr, u8 addr);
 #endif
-

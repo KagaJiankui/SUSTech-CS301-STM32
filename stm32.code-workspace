@@ -4,8 +4,8 @@
       "path": "."
     },
     {
-      "name": "TOUCHSCREEN",
-      "path": "./lab/touch_screen"
+      "path": "./lab/assign3",
+      "name": "DMA_LCD"
     }
   ],
   "settings": {
@@ -24,7 +24,8 @@
       "--query-driver=D:/embedded-toolchain/arm-none-eabi/bin/arm-none-eabi-gcc,D:/embedded-toolchain/arm-none-eabi/bin/arm-none-eabi-g++",
       "--ranking-model=decision_forest",
       "-j=24",
-      "--log=error"
+      "--log=error",
+      "--resource-dir=D:/embedded_toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.2.1/"
     ],
     "cmake.copyCompileCommands": "${workspaceFolder}/compile_commands.json",
     "files.associations": {

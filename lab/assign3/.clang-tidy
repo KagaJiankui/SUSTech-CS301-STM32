@@ -148,11 +148,11 @@ WarningsAsErrors: ""
 ExtraArgsBefore:
   [
     "--sysroot=D:/embedded-toolchain/arm-none-eabi/arm-none-eabi",
-    "-ID:/Electronics/stm32/lab/touch_screen/cmake/stm32cubemx/../../Core/Inc",
-    "-ID:/Electronics/stm32/lab/touch_screen/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc",
-    "-ID:/Electronics/stm32/lab/touch_screen/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
-    "-ID:/Electronics/stm32/lab/touch_screen/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include",
-    "-ID:/Electronics/stm32/lab/touch_screen/cmake/stm32cubemx/../../Drivers/CMSIS/Include",
+    "-ID:/Electronics/stm32/lab/assign3/cmake/stm32cubemx/../../Core/Inc",
+    "-ID:/Electronics/stm32/lab/assign3/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc",
+    "-ID:/Electronics/stm32/lab/assign3/cmake/stm32cubemx/../../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+    "-ID:/Electronics/stm32/lab/assign3/cmake/stm32cubemx/../../Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+    "-ID:/Electronics/stm32/lab/assign3/cmake/stm32cubemx/../../Drivers/CMSIS/Include",
     "-isystem",
     "D:/embedded_toolchains/arm-none-eabi/bin/../lib/gcc/arm-none-eabi/13.2.1/../../../../arm-none-eabi/include/c++/13.2.1",
     "-isystem",

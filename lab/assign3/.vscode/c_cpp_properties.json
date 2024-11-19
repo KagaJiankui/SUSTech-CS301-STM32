@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder:DMA_LCD}/Core/Inc",
+        "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Include"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "${workspaceFolder:DMA_LCD}/Core/Inc",
+          "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Include",
+          "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "${workspaceFolder:DMA_LCD}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "${workspaceFolder:DMA_LCD}/Drivers/CMSIS/Include/**"
+        ]
+      },
+      "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F103xE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "compileCommands": "${workspaceFolder:DMA_LCD}/compile_commands.json",
+      "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+    }
+  ],
+  "version": 4
+}
