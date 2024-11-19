@@ -28,7 +28,7 @@
         "-c",
         "port=SWD",
         "-d",
-        "${workspaceFolder:TIMER}/build/Debug/touch_screen.elf",
+        "${workspaceFolder:TOUCHSCREEN}/build/Debug/touch_screen.elf",
         "-v",
         "-g",
         "0x8000000"
@@ -71,8 +71,8 @@
       "args": [
         "-O",
         "ihex",
-        "${workspaceFolder:TIMER}/build/Debug/touch_screen.elf",
-        "${workspaceFolder:TIMER}/build/Debug/timer.hex"
+        "${workspaceFolder:TOUCHSCREEN}/build/Debug/touch_screen.elf",
+        "${workspaceFolder:TOUCHSCREEN}/build/Debug/timer.hex"
       ],
       "group": "build"
     }

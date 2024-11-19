@@ -1,32 +1,33 @@
 #include "lcd.h"
+
+#include "font.h"
+#include "stdio.h"
 #include "stdlib.h"
-#include "font.h" 
 //#include "usart.h"
 #include "delay.h"
 #include "stm32f1xx_hal.h"
-//////////////////////////////////////////////////////////////////////////////////	 
-//������ֻ��ѧϰʹ�ã�δ��������ɣ��������������κ���;
-//ALIENTEK MiniSTM32F103������
-//2.4��/2.8��/3.5��/4.3��/7�� TFTҺ������
-//֧������IC�ͺŰ���:ILI9341/NT35310/NT35510/SSD1963/ST7789 ��
-//����ԭ��@ALIENTEK
-//������̳:www.openedv.com
-//��������:2010/7/4
-//�汾��V3.0
-//��Ȩ���У�����ؾ���
-//Copyright(C) ������������ӿƼ����޹�˾ 2014-2024
-//All rights reserved	
+//////////////////////////////////////////////////////////////////////////////////
+// ������ֻ��ѧϰʹ�ã�δ��������ɣ��������������κ���;
+// ALIENTEK MiniSTM32F103������
+// 2.4��/2.8��/3.5��/4.3��/7�� TFTҺ������
+// ֧������IC�ͺŰ���:ILI9341/NT35310/NT35510/SSD1963/ST7789 ��
+// ����ԭ��@ALIENTEK
+// ������̳:www.openedv.com
+// ��������:2010/7/4
+// �汾��V3.0
+// ��Ȩ���У�����ؾ���
+// Copyright(C) ������������ӿƼ����޹�˾ 2014-2024
+// All rights reserved
 //********************************************************************************
-//V4.0 20211110
-//1��ȥ���󲿷ֲ���������IC��֧��
-//2��������ST7789����IC��֧��
-//3���Ż�����ṹ������Դ�룩
+// V4.0 20211110
+// 1��ȥ���󲿷ֲ���������IC��֧��
+// 2��������ST7789����IC��֧��
+// 3���Ż�����ṹ������Դ�룩
 //////////////////////////////////////////////////////////////////////////////////
 
- 
-//LCD�Ļ�����ɫ�ͱ���ɫ
-u16 POINT_COLOR=0x0000;     //������ɫ
-u16 BACK_COLOR=0xFFFF;      //����ɫ 
+// LCD�Ļ�����ɫ�ͱ���ɫ
+u16 POINT_COLOR = 0x0000;  // ������ɫ
+u16 BACK_COLOR = 0xFFFF;   // ����ɫ
 
 //����LCD��Ҫ����
 //Ĭ��Ϊ����
@@ -34,14 +35,13 @@ _lcd_dev lcddev;
 
 //д�Ĵ�������
 //data:�Ĵ���ֵ
-void LCD_WR_REG(u16 data)
-{ 
-    LCD_RS_CLR;//д��ַ
-    LCD_CS_CLR;
-    DATAOUT(data);
-    LCD_WR_CLR;
-    LCD_WR_SET;
-    LCD_CS_SET; 
+void LCD_WR_REG(u16 data) {
+  LCD_RS_CLR;  // д��ַ
+  LCD_CS_CLR;
+  DATAOUT(data);
+  LCD_WR_CLR;
+  LCD_WR_SET;
+  LCD_CS_SET;
 }
 
 //д���ݺ���
@@ -78,15 +78,15 @@ u16 LCD_RD_DATA(void)
     LCD_RD_CLR;
 
     opt_delay(2);
-    t=DATAIN;  
+    t = DATAIN;
 
     LCD_RD_SET;
-    LCD_CS_SET; 
+    LCD_CS_SET;
 
     GPIOB->CRL=0X33333333; //PB0-7  �������
     GPIOB->CRH=0X33333333; //PB8-15 �������
     GPIOB->ODR=0XFFFF;     //ȫ�������
-    return t;  
+    return t;
 }
 
 //д�Ĵ���
@@ -94,8 +94,8 @@ u16 LCD_RD_DATA(void)
 //LCD_RegValue:Ҫд���ֵ
 void LCD_WriteReg(u16 LCD_Reg,u16 LCD_RegValue)
 {
-    LCD_WR_REG(LCD_Reg);  
-    LCD_WR_DATA(LCD_RegValue);
+  LCD_WR_REG(LCD_Reg);
+  LCD_WR_DATA(LCD_RegValue);
 }
 
 //���Ĵ���
@@ -108,10 +108,7 @@ u16 LCD_ReadReg(u16 LCD_Reg)
 }
 
 //��ʼдGRAM
-void LCD_WriteRAM_Prepare(void)
-{
-    LCD_WR_REG(lcddev.wramcmd);
-} 
+void LCD_WriteRAM_Prepare(void) { LCD_WR_REG(lcddev.wramcmd); }
 //LCDдGRAM
 //RGB_Code:��ɫֵ
 void LCD_WriteRAM(u16 RGB_Code)
@@ -552,63 +549,59 @@ void LCD_Display_Dir(u8 dir)
     LCD_Scan_Dir(DFT_SCAN_DIR);     //Ĭ��ɨ�跽��
 }
 
-//���ô���,���Զ����û������굽�������Ͻ�(sx,sy).
-//sx,sy:������ʼ����(���Ͻ�)
-//width,height:���ڿ�Ⱥ͸߶�,�������0!!
-//�����С:width*height. 
-void LCD_Set_Window(u16 sx,u16 sy,u16 width,u16 height)
-{    
-    u16 twidth, theight;
-    twidth = sx + width - 1;
-    theight = sy + height - 1;
+// ���ô���,���Զ����û������굽�������Ͻ�(sx,sy).
+// sx,sy:������ʼ����(���Ͻ�)
+// width,height:���ڿ�Ⱥ͸߶�,�������0!!
+// �����С:width*height.
+void LCD_Set_Window(u16 sx, u16 sy, u16 width, u16 height) {
+  u16 twidth, theight;
+  twidth = sx + width - 1;
+  theight = sy + height - 1;
 
-    if (lcddev.id == 0X1963 && lcddev.dir != 1)     //1963�������⴦��
-    {
-        sx = lcddev.width - width - sx;
-        height = sy + height - 1;
-        LCD_WR_REG(lcddev.setxcmd);
-        LCD_WR_DATA(sx >> 8);
-        LCD_WR_DATA(sx & 0XFF);
-        LCD_WR_DATA((sx + width - 1) >> 8);
-        LCD_WR_DATA((sx + width - 1) & 0XFF);
-        LCD_WR_REG(lcddev.setycmd);
-        LCD_WR_DATA(sy >> 8);
-        LCD_WR_DATA(sy & 0XFF);
-        LCD_WR_DATA(height >> 8);
-        LCD_WR_DATA(height & 0XFF);
-    }
-    else if (lcddev.id == 0X5510)
-    {
-        LCD_WR_REG(lcddev.setxcmd);
-        LCD_WR_DATA(sx >> 8);
-        LCD_WR_REG(lcddev.setxcmd + 1);
-        LCD_WR_DATA(sx & 0XFF);
-        LCD_WR_REG(lcddev.setxcmd + 2);
-        LCD_WR_DATA(twidth >> 8);
-        LCD_WR_REG(lcddev.setxcmd + 3);
-        LCD_WR_DATA(twidth & 0XFF);
-        LCD_WR_REG(lcddev.setycmd);
-        LCD_WR_DATA(sy >> 8);
-        LCD_WR_REG(lcddev.setycmd + 1);
-        LCD_WR_DATA(sy & 0XFF);
-        LCD_WR_REG(lcddev.setycmd + 2);
-        LCD_WR_DATA(theight >> 8);
-        LCD_WR_REG(lcddev.setycmd + 3);
-        LCD_WR_DATA(theight & 0XFF);
-    }
-    else     //9341/5310/7789/1963���� �� ���ô���
-    {
-        LCD_WR_REG(lcddev.setxcmd);
-        LCD_WR_DATA(sx >> 8);
-        LCD_WR_DATA(sx & 0XFF);
-        LCD_WR_DATA(twidth >> 8);
-        LCD_WR_DATA(twidth & 0XFF);
-        LCD_WR_REG(lcddev.setycmd);
-        LCD_WR_DATA(sy >> 8);
-        LCD_WR_DATA(sy & 0XFF);
-        LCD_WR_DATA(theight >> 8);
-        LCD_WR_DATA(theight & 0XFF);
-    }
+  if (lcddev.id == 0X1963 && lcddev.dir != 1)  // 1963�������⴦��
+  {
+    sx = lcddev.width - width - sx;
+    height = sy + height - 1;
+    LCD_WR_REG(lcddev.setxcmd);
+    LCD_WR_DATA(sx >> 8);
+    LCD_WR_DATA(sx & 0XFF);
+    LCD_WR_DATA((sx + width - 1) >> 8);
+    LCD_WR_DATA((sx + width - 1) & 0XFF);
+    LCD_WR_REG(lcddev.setycmd);
+    LCD_WR_DATA(sy >> 8);
+    LCD_WR_DATA(sy & 0XFF);
+    LCD_WR_DATA(height >> 8);
+    LCD_WR_DATA(height & 0XFF);
+  } else if (lcddev.id == 0X5510) {
+    LCD_WR_REG(lcddev.setxcmd);
+    LCD_WR_DATA(sx >> 8);
+    LCD_WR_REG(lcddev.setxcmd + 1);
+    LCD_WR_DATA(sx & 0XFF);
+    LCD_WR_REG(lcddev.setxcmd + 2);
+    LCD_WR_DATA(twidth >> 8);
+    LCD_WR_REG(lcddev.setxcmd + 3);
+    LCD_WR_DATA(twidth & 0XFF);
+    LCD_WR_REG(lcddev.setycmd);
+    LCD_WR_DATA(sy >> 8);
+    LCD_WR_REG(lcddev.setycmd + 1);
+    LCD_WR_DATA(sy & 0XFF);
+    LCD_WR_REG(lcddev.setycmd + 2);
+    LCD_WR_DATA(theight >> 8);
+    LCD_WR_REG(lcddev.setycmd + 3);
+    LCD_WR_DATA(theight & 0XFF);
+  } else  // 9341/5310/7789/1963���� �� ���ô���
+  {
+    LCD_WR_REG(lcddev.setxcmd);
+    LCD_WR_DATA(sx >> 8);
+    LCD_WR_DATA(sx & 0XFF);
+    LCD_WR_DATA(twidth >> 8);
+    LCD_WR_DATA(twidth & 0XFF);
+    LCD_WR_REG(lcddev.setycmd);
+    LCD_WR_DATA(sy >> 8);
+    LCD_WR_DATA(sy & 0XFF);
+    LCD_WR_DATA(theight >> 8);
+    LCD_WR_DATA(theight & 0XFF);
+  }
 }
 
 //��ʼ��lcd
@@ -622,8 +615,7 @@ void LCD_Init(void)
     __HAL_RCC_GPIOC_CLK_ENABLE();           	//����GPIOCʱ��
 
     //PC6,7,8,9,10
-    GPIO_Initure.Pin=GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|\
-                     GPIO_PIN_9|GPIO_PIN_10; 				
+    GPIO_Initure.Pin = GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8 | GPIO_PIN_9 | GPIO_PIN_10;
     GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  	//�������
     GPIO_Initure.Pull=GPIO_PULLUP;          	//����
     GPIO_Initure.Speed=GPIO_SPEED_FREQ_HIGH;    //����
@@ -632,14 +624,13 @@ void LCD_Init(void)
     //PB0~15
     GPIO_Initure.Pin=GPIO_PIN_All;				//PB�������
     HAL_GPIO_Init(GPIOB,&GPIO_Initure);
-        
+
     __HAL_AFIO_REMAP_SWJ_DISABLE();				//��ֹJTAG
 
-    delay_ms(50); // delay 50 ms 
+    delay_ms(50);  // delay 50 ms
     LCD_WriteReg(0x0000,0x0001);
-    delay_ms(50); // delay 50 ms 
-    
-    
+    delay_ms(50);  // delay 50 ms
+
     //����9341 ID�Ķ�ȡ
     LCD_WR_REG(0XD3);
     lcddev.id = LCD_RD_DATA();          //dummy read
@@ -2053,12 +2044,12 @@ void LCD_Init(void)
 
         LCD_SSD_BackLightSet(100);//��������Ϊ����
     }
-    
+
     LCD_Display_Dir(0);         //Ĭ��Ϊ����
     LCD_LED = 1;                //��������
     LCD_Clear(WHITE);
 }
-  
+
 //��������
 //color:Ҫ���������ɫ
 void LCD_Clear(u16 color)
@@ -2121,9 +2112,9 @@ void LCD_Color_Fill(u16 sx,u16 sy,u16 ex,u16 ey,u16 *color)
     }
 }
 
-//����
-//x1,y1:�������
-//x2,y2:�յ�����  
+// ����
+// x1,y1:�������
+// x2,y2:�յ�����
 void LCD_DrawLine(u16 x1, u16 y1, u16 x2, u16 y2)
 {
     u16 t;
@@ -2255,7 +2246,7 @@ void LCD_ShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode)
                 break;
             }
         }
-    } 
+    }
 }
 
 //m^n����
@@ -2263,16 +2254,16 @@ void LCD_ShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode)
 u32 LCD_Pow(u8 m,u8 n)
 {
     u32 result=1;
-    while(n--)result*=m;    
+    while (n--) result *= m;
     return result;
 }
 
-//��ʾ����,��λΪ0,����ʾ
-//x,y :�������	 
-//len :���ֵ�λ��
-//size:�����С
-//color:��ɫ 
-//num:��ֵ(0~4294967295);
+// ��ʾ����,��λΪ0,����ʾ
+// x,y :�������
+// len :���ֵ�λ��
+// size:�����С
+// color:��ɫ
+// num:��ֵ(0~4294967295);
 void LCD_ShowNum(u16 x,u16 y,u32 num,u8 len,u8 size)
 {
     u8 t, temp;
@@ -2306,30 +2297,27 @@ void LCD_ShowNum(u16 x,u16 y,u32 num,u8 len,u8 size)
 //[7]:0,�����;1,���0.
 //[6:1]:����
 //[0]:0,�ǵ�����ʾ;1,������ʾ.
-void LCD_ShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode)
-{  
-    u8 t, temp;
-    u8 enshow = 0;
+void LCD_ShowxNum(u16 x, u16 y, u32 num, u8 len, u8 size, u8 mode) {
+  u8 t, temp;
+  u8 enshow = 0;
 
-    for (t = 0; t < len; t++)
-    {
-        temp = (num / LCD_Pow(10, len - t - 1)) % 10;
+  for (t = 0; t < len; t++) {
+    temp = (num / LCD_Pow(10, len - t - 1)) % 10;
 
-        if (enshow == 0 && t < (len - 1))
-        {
-            if (temp == 0)
-            {
-                if (mode & 0X80)LCD_ShowChar(x + (size / 2)*t, y, '0', size, mode & 0X01);
-                else LCD_ShowChar(x + (size / 2)*t, y, ' ', size, mode & 0X01);
+    if (enshow == 0 && t < (len - 1)) {
+      if (temp == 0) {
+        if (mode & 0X80)
+          LCD_ShowChar(x + (size / 2) * t, y, '0', size, mode & 0X01);
+        else
+          LCD_ShowChar(x + (size / 2) * t, y, ' ', size, mode & 0X01);
 
-                continue;
-            }
-            else enshow = 1;
-
-        }
-
-        LCD_ShowChar(x + (size / 2)*t, y, temp + '0', size, mode & 0X01);
+        continue;
+      } else
+        enshow = 1;
     }
+
+    LCD_ShowChar(x + (size / 2) * t, y, temp + '0', size, mode & 0X01);
+  }
 }
 
 //��ʾ�ַ���
@@ -2337,26 +2325,24 @@ void LCD_ShowxNum(u16 x,u16 y,u32 num,u8 len,u8 size,u8 mode)
 //width,height:�����С
 //size:�����С
 //*p:�ַ�����ʼ��ַ
-void LCD_ShowString(u16 x,u16 y,u16 width,u16 height,u8 size,u8 *p)
-{         
-    u8 x0 = x;
-    width += x;
-    height += y;
+void LCD_ShowString(u16 x, u16 y, u16 width, u16 height, u8 size, u8 *p) {
+  u8 x0 = x;
+  width += x;
+  height += y;
 
-    while ((*p <= '~') && (*p >= ' '))   //�ж��ǲ��ǷǷ��ַ�!
-    {
-        if (x >= width)
-        {
-            x = x0;
-            y += size;
-        }
-
-        if (y >= height)break; //�˳�
-
-        LCD_ShowChar(x, y, *p, size, 0);
-        x += size / 2;
-        p++;
+  while ((*p <= '~') && (*p >= ' '))  // �ж��ǲ��ǷǷ��ַ�!
+  {
+    if (x >= width) {
+      x = x0;
+      y += size;
     }
+
+    if (y >= height) break;  // �˳�
+
+    LCD_ShowChar(x, y, *p, size, 0);
+    x += size / 2;
+    p++;
+  }
 }
 
 void LCD_ShowImage(uint16_t x, uint16_t y) {
@@ -2472,32 +2458,3 @@ void LCD_ShowInputWrongImage(uint16_t xstr,uint16_t ystr) {
 			pusMsk++;
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

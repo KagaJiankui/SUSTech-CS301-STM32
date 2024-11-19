@@ -6,7 +6,7 @@
   "configurations": [
     {
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder:TIMER}/build/Debug/touch_screen.elf",
+      "executable": "${workspaceFolder:TOUCHSCREEN}/build/Debug/touch_screen.elf",
       "name": "Official STLink Debug",
       "request": "launch",
       "runToEntryPoint": "main",
@@ -26,7 +26,7 @@
       "request": "custom",
       "name": "lldb debug with st-util",
       "targetCreateCommands": [
-        "target create ${workspaceFolder:TIMER}/build/Debug/touch_screen.elf"
+        "target create ${workspaceFolder:TOUCHSCREEN}/build/Debug/touch_screen.elf"
       ],
       "processCreateCommands": [
         "gdb-remote 50000"
@@ -36,7 +36,7 @@
     },
     {
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder:TIMER}/build/Debug/touch_screen.elf",
+      "executable": "${workspaceFolder:TOUCHSCREEN}/build/Debug/touch_screen.elf",
       "name": "OpenOCD-stlink",
       "request": "launch",
       "type": "cortex-debug",
