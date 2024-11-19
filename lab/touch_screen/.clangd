@@ -1,0 +1,10 @@
+CompileFlags:
+  Add: ["-Wall", "-Wextra", "-Wpedantic", "-ferror-limit=0"]
+  Remove: [-xc++,-W*, "-resource-dir*", "-ferror-limit*"]
+  Compiler: arm-none-eabi-gcc
+Diagnostics:
+  Includes:
+    AnalyzeAngledIncludes: true
+Index:
+  StandardLibrary: Yes
+  Background: Build

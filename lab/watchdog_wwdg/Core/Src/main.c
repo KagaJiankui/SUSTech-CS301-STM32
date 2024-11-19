@@ -18,9 +18,18 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+
+#include <stdio.h>
+#include <string.h>
+
+#include "gpio.h"
+#include "stm32f103xe.h"
+#include "stm32f1xx_hal.h"
+#include "stm32f1xx_hal_gpio.h"
+#include "stm32f1xx_hal_uart.h"
+#include "tim.h"
 #include "usart.h"
 #include "wwdg.h"
-#include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -90,17 +99,27 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_WWDG_Init();
+  MX_TIM6_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(GPIOD, LED1_Pin, GPIO_PIN_SET);
+  int i = 0;
+  unsigned char msg[100];
+  sprintf(msg, "Restarting...\r\n");
+  HAL_UART_Transmit(&huart1, msg, 16, HAL_MAX_DELAY);
   while (1)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+    i++;
+    sprintf(msg, "i = %d\r\n", i);
+    HAL_UART_Transmit(&huart1, msg, strlen(msg), HAL_MAX_DELAY);
+    HAL_Delay(1000);
   }
   /* USER CODE END 3 */
 }
@@ -135,7 +154,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV16;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV8;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {

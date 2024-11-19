@@ -4,12 +4,8 @@
       "path": "."
     },
     {
-      "name": "HAMMING",
-      "path": "lab/assign2"
-    },
-    {
-      "name": "WWDG",
-      "path": "lab/watchdog_wwdg"
+      "name": "TOUCHSCREEN",
+      "path": "./lab/touch_screen"
     }
   ],
   "settings": {

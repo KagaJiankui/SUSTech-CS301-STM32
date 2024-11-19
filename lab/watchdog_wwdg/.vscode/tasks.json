@@ -7,7 +7,7 @@
       "type": "shell",
       "args": [
         "-f",
-        "${workspaceFolder:stm32}/.vscode/cmsis-dap.cfg",
+        "${workspaceFolder:stm32}/.vscode/stlink.cfg",
         "-c",
         "program ./build/Debug/watchdog_wwdg.elf",
         "-c",
@@ -19,14 +19,17 @@
       "group": "build"
     },
     {
-      "label": "PyOCD flash",
-      "command": "pyocd",
+      "label": "STM32CubeProg flash",
+      "command": "STM32_Programmer_CLI",
       "type": "shell",
       "args": [
-        "flash",
-        "-t",
-        "stm32f103rc",
-        "${workspaceFolder:WWDG}/build/Debug/watchdog_wwdg.elf"
+        "-c",
+        "port=SWD",
+        "-d",
+        "${workspaceFolder:WWDG}/build/Debug/watchdog_wwdg.elf",
+        "-v",
+        "-g",
+        "0x8000000"
       ],
       "presentation": {
         "reveal": "always"

@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder:TOUCHSCREEN}/Core/Inc",
+        "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Include"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "${workspaceFolder:TOUCHSCREEN}/Core/Inc",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Include",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "${workspaceFolder:TOUCHSCREEN}/Drivers/CMSIS/Include/**"
+        ]
+      },
+      "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F103xE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "compileCommands": "${workspaceFolder:TOUCHSCREEN}/compile_commands.json",
+      "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+    }
+  ],
+  "version": 4
+}
