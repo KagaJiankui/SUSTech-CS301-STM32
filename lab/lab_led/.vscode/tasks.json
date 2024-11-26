@@ -27,6 +27,24 @@
         "reveal": "always"
       },
       "group": "build"
-    }
+    },
+    {
+      "label": "STM32CubeProg flash",
+      "command": "STM32_Programmer_CLI",
+      "type": "shell",
+      "args": [
+        "-c",
+        "port=SWD",
+        "-d",
+        "${workspaceFolder:lab_led}/build/Debug/lab_led.elf",
+        "-v",
+        "-g",
+        "0x8000000"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
   ]
 }

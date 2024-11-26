@@ -63,9 +63,12 @@ void Error_Handler(void);
 #define KEY_0_EXTI_IRQn EXTI9_5_IRQn
 #define LED0_PWM_Pin GPIO_PIN_8
 #define LED0_PWM_GPIO_Port GPIOA
+#define LED1_Pin GPIO_PIN_2
+#define LED1_GPIO_Port GPIOD
 #define KEY_1_Pin GPIO_PIN_15
 #define KEY_1_GPIO_Port GPIOA
 #define KEY_1_EXTI_IRQn EXTI15_10_IRQn
+#define LED0_MAX_BRIGHTNESS 18
 
 /* USER CODE BEGIN Private defines */
 
