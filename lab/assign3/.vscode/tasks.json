@@ -28,7 +28,7 @@
         "-c",
         "port=SWD",
         "-d",
-        "${workspaceFolder:TOUCHSCREEN}/build/RelWithDebInfo/dma_lcd.elf",
+        "${workspaceFolder:DMA_LCD}/build/RelWithDebInfo/dma_lcd.elf",
         "-v",
         "-g",
         "0x8000000"
@@ -71,8 +71,8 @@
       "args": [
         "-O",
         "ihex",
-        "${workspaceFolder:TOUCHSCREEN}/build/RelWithDebInfo/dma_lcd.elf",
-        "${workspaceFolder:TOUCHSCREEN}/build/Debug/timer.hex"
+        "${workspaceFolder:DMA_LCD}/build/RelWithDebInfo/dma_lcd.elf",
+        "${workspaceFolder:DMA_LCD}/build/Debug/timer.hex"
       ],
       "group": "build"
     }

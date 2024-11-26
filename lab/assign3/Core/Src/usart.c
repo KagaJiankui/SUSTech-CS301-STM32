@@ -21,17 +21,19 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include <string.h>
 
+#include "lcd.h"
+#include "memcpy.h"
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
+extern USARTRecvBuffer USART1Buffer;
 
 /* USART1 init function */
 
-void MX_USART1_UART_Init(void)
-{
-
+void MX_USART1_UART_Init(void) {
   /* USER CODE BEGIN USART1_Init 0 */
 
   /* USER CODE END USART1_Init 0 */
@@ -40,32 +42,27 @@ void MX_USART1_UART_Init(void)
 
   /* USER CODE END USART1_Init 1 */
   huart1.Instance = USART1;
-  huart1.Init.BaudRate = 115200;
+  huart1.Init.BaudRate = 256000;
   huart1.Init.WordLength = UART_WORDLENGTH_8B;
   huart1.Init.StopBits = UART_STOPBITS_1;
   huart1.Init.Parity = UART_PARITY_NONE;
   huart1.Init.Mode = UART_MODE_TX_RX;
   huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
   huart1.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart1) != HAL_OK)
-  {
+  if (HAL_UART_Init(&huart1) != HAL_OK) {
     Error_Handler();
   }
   /* USER CODE BEGIN USART1_Init 2 */
 
   /* USER CODE END USART1_Init 2 */
-
 }
 
-void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
-{
-
+void HAL_UART_MspInit(UART_HandleTypeDef *uartHandle) {
   GPIO_InitTypeDef GPIO_InitStruct = {0};
-  if(uartHandle->Instance==USART1)
-  {
-  /* USER CODE BEGIN USART1_MspInit 0 */
+  if (uartHandle->Instance == USART1) {
+    /* USER CODE BEGIN USART1_MspInit 0 */
 
-  /* USER CODE END USART1_MspInit 0 */
+    /* USER CODE END USART1_MspInit 0 */
     /* USART1 clock enable */
     __HAL_RCC_USART1_CLK_ENABLE();
 
@@ -94,30 +91,26 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     hdma_usart1_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
     hdma_usart1_rx.Init.Mode = DMA_NORMAL;
     hdma_usart1_rx.Init.Priority = DMA_PRIORITY_MEDIUM;
-    if (HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK)
-    {
+    if (HAL_DMA_Init(&hdma_usart1_rx) != HAL_OK) {
       Error_Handler();
     }
 
-    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart1_rx);
+    __HAL_LINKDMA(uartHandle, hdmarx, hdma_usart1_rx);
 
     /* USART1 interrupt Init */
     HAL_NVIC_SetPriority(USART1_IRQn, 1, 0);
     HAL_NVIC_EnableIRQ(USART1_IRQn);
-  /* USER CODE BEGIN USART1_MspInit 1 */
+    /* USER CODE BEGIN USART1_MspInit 1 */
 
-  /* USER CODE END USART1_MspInit 1 */
+    /* USER CODE END USART1_MspInit 1 */
   }
 }
 
-void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
-{
+void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle) {
+  if (uartHandle->Instance == USART1) {
+    /* USER CODE BEGIN USART1_MspDeInit 0 */
 
-  if(uartHandle->Instance==USART1)
-  {
-  /* USER CODE BEGIN USART1_MspDeInit 0 */
-
-  /* USER CODE END USART1_MspDeInit 0 */
+    /* USER CODE END USART1_MspDeInit 0 */
     /* Peripheral clock disable */
     __HAL_RCC_USART1_CLK_DISABLE();
 
@@ -125,19 +118,50 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     PA9     ------> USART1_TX
     PA10     ------> USART1_RX
     */
-    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_10);
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9 | GPIO_PIN_10);
 
     /* USART1 DMA DeInit */
     HAL_DMA_DeInit(uartHandle->hdmarx);
 
     /* USART1 interrupt Deinit */
     HAL_NVIC_DisableIRQ(USART1_IRQn);
-  /* USER CODE BEGIN USART1_MspDeInit 1 */
+    /* USER CODE BEGIN USART1_MspDeInit 1 */
 
-  /* USER CODE END USART1_MspDeInit 1 */
+    /* USER CODE END USART1_MspDeInit 1 */
   }
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+ * @brief Callback function for arbitrary length frame reception with UART Rx Event.
+ *
+ * This function is triggered when a data reception event occurs on USART1.
+ * It utilizes `\r\n` sequence as a frame terminator, and toggles corresponding flag in `USARTRecvBuffer` struct accordingly. The buffer cycles back
+ * to the beginning if any overflow occurs.
+ *
+ * Frame Structure:
+ *
+ * ```
+ * | Header | Data_Legnth |               Data               |  CRLF  |
+ * | 0x1234 |   <=0x1518  |sizeof(Data)<=5400*sizeof(uint8_t)| 0x0D0A |
+ * ```
+ *
+ * @param huart Pointer to the UART handle.
+ * @param Size Number of bytes received, ususally obtained from `huart->RxXferSize`.
+ */
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, volatile uint16_t Size) {
+  if (huart->Instance == USART1) {
+    if (USART1Buffer.rxlen >= USART1Buffer.maxlen) {
+      USART1Buffer.rxlen = 0;
+    }
+    uint8_t *dest = &USART1Buffer.uBuffer[(uint8_t)USART_RECVLENGTH_LOCAL(USART1Buffer)];
+    memcpy(dest, (uint8_t *)(&USART1Buffer.curBuffer[4]), (Size - 2) * sizeof(uint8_t));
+    USART1Buffer.rxlen += (Size - 6);  // 2: header, 2: length, 2: CRLF
+    // HAL_UART_Transmit(huart, (uint8_t *)USART1Buffer.uBuffer, 2, 1000);
+    memset((uint8_t *)USART1Buffer.curBuffer, 0, USART_RECV_BUFLEN * sizeof(uint8_t));
+  }
+}
 
 /* USER CODE END 1 */

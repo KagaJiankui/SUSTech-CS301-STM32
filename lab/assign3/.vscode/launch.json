@@ -6,7 +6,7 @@
   "configurations": [
     {
       "cwd": "${workspaceFolder}",
-      "executable": "${workspaceFolder:TOUCHSCREEN}/build/RelWithDebInfo/dma_lcd.elf",
+      "executable": "${workspaceFolder:DMA_LCD}/build/RelWithDebInfo/dma_lcd.elf",
       "name": "Official STLink Debug",
       "request": "launch",
       "runToEntryPoint": "main",
@@ -26,7 +26,7 @@
       "request": "custom",
       "name": "lldb debug with st-util",
       "targetCreateCommands": [
-        "target create ${workspaceFolder:TOUCHSCREEN}/build/RelWithDebInfo/dma_lcd.elf"
+        "target create ${workspaceFolder:DMA_LCD}/build/RelWithDebInfo/dma_lcd.elf"
       ],
       "processCreateCommands": [
         "gdb-remote 50000"
@@ -36,7 +36,7 @@
     },
     {
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceFolder:TOUCHSCREEN}/build/RelWithDebInfo/dma_lcd.elf",
+      "executable": "${workspaceFolder:DMA_LCD}/build/RelWithDebInfo/dma_lcd.elf",
       "name": "OpenOCD-stlink",
       "request": "launch",
       "type": "cortex-debug",

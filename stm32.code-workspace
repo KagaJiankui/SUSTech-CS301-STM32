@@ -4,6 +4,9 @@
       "path": "."
     },
     {
+      "path": "./lab/lab_led/"
+    },
+    {
       "path": "./lab/assign3",
       "name": "DMA_LCD"
     }

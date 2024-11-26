@@ -52,7 +52,7 @@ void MX_DMA_Init(void)
   hdma_memtomem_dma1_channel6.Init.MemInc = DMA_MINC_ENABLE;
   hdma_memtomem_dma1_channel6.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
   hdma_memtomem_dma1_channel6.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-  hdma_memtomem_dma1_channel6.Init.Mode = DMA_NORMAL;
+  hdma_memtomem_dma1_channel6.Init.Mode = DMA_CIRCULAR;
   hdma_memtomem_dma1_channel6.Init.Priority = DMA_PRIORITY_LOW;
   if (HAL_DMA_Init(&hdma_memtomem_dma1_channel6) != HAL_OK)
   {
@@ -61,7 +61,7 @@ void MX_DMA_Init(void)
 
   /* DMA interrupt init */
   /* DMA1_Channel5_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 1, 2);
+  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 1, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
   /* DMA1_Channel6_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel6_IRQn, 1, 1);
@@ -70,6 +70,27 @@ void MX_DMA_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
+/**
+ * @brief Control Word for LCD 8080 interface
+ * CS/RS/WR/RD is on GPIOC PC9/PC8/PC7/PC6
+ * Map the corresponding control word from program memory to mmap'ed GPIOC->BSRR with DMA1_Channel6
+ *
+ * ```
+ * WIRE SET   RESET
+ * CS   0x200 0x2000000
+ * RS   0x100 0x1000000
+ * WR   0x080 0x0800000
+ * RD   0x040 0x0400000
+ * ```
+ *
+ * Data Frame Structure:
+ *
+ * ```
+ * |RS|CS_CLR|HOLD|WR_CLR|WR_SET|CS_SET|
+ * |
+ * ```
+ *
+ */
+
 
 /* USER CODE END 2 */
-
