@@ -1,0 +1,38 @@
+{
+  "configurations": [
+    {
+      "name": "Win32",
+      "includePath": [
+        "${workspaceFolder:ADC}/Core/Inc",
+        "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc",
+        "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+        "${workspaceFolder:ADC}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+        "${workspaceFolder:ADC}/Drivers/CMSIS/Include"
+      ],
+      "browse": {
+        "limitSymbolsToIncludedHeaders": false,
+        "path": [
+          "${workspaceFolder:ADC}/Core/Inc",
+          "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc",
+          "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy",
+          "${workspaceFolder:ADC}/Drivers/CMSIS/Device/ST/STM32F1xx/Include",
+          "${workspaceFolder:ADC}/Drivers/CMSIS/Include",
+          "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc/**",
+          "${workspaceFolder:ADC}/Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/*",
+          "${workspaceFolder:ADC}/Drivers/CMSIS/Device/ST/STM32F1xx/Include/**",
+          "${workspaceFolder:ADC}/Drivers/CMSIS/Include/**"
+        ]
+      },
+      "defines": [
+        "USE_HAL_DRIVER",
+        "STM32F103xE"
+      ],
+      "cStandard": "c11",
+      "cppStandard": "c++11",
+      "configurationProvider": "ms-vscode.cmake-tools",
+      "compileCommands": "${workspaceFolder:ADC}/compile_commands.json",
+      "compilerPath": "D:/embedded_toolchains/arm-none-eabi/bin/arm-none-eabi-gcc.exe"
+    }
+  ],
+  "version": 4
+}

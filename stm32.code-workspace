@@ -4,11 +4,8 @@
       "path": "."
     },
     {
-      "path": "./lab/lab_led/"
-    },
-    {
-      "path": "./lab/assign3",
-      "name": "DMA_LCD"
+      "path": "./lab/lab_adc",
+      "name": "ADC"
     }
   ],
   "settings": {
@@ -58,7 +55,12 @@
       "tim.h": "c",
       "hamming.h": "c",
       "cstdint": "c",
-      "stdlib.h": "c"
+      "stdlib.h": "c",
+      "stddef.h": "c",
+      "array": "c",
+      "initializer_list": "c",
+      "lcd.h": "c",
+      "stm32f1xx_hal_adc.h": "c"
     },
     "cSpell.words": [
       "cubef",

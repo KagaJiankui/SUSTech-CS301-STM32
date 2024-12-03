@@ -1,0 +1,80 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "OpenOCD flash",
+      "command": "openocd",
+      "type": "shell",
+      "args": [
+        "-f",
+        "${workspaceFolder:stm32}/.vscode/stlink.cfg",
+        "-c",
+        "program ./build/RelWithDebInfo/lab_adc.elf",
+        "-c",
+        "reset run; exit;"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "STM32CubeProg flash",
+      "command": "STM32_Programmer_CLI",
+      "type": "shell",
+      "args": [
+        "-c",
+        "port=SWD",
+        "-d",
+        "${workspaceFolder:ADC}/build/RelWithDebInfo/lab_adc.elf",
+        "-v",
+        "-g",
+        "0x8000000"
+      ],
+      "presentation": {
+        "reveal": "always"
+      },
+      "group": "build"
+    },
+    {
+      "label": "st-util-open-port",
+      "command": "st-util",
+      "type": "shell",
+      "args": [
+        "-n",
+        "--listen_port=50000",
+        "--freq=4000k",
+        "-m"
+      ],
+      "dependsOn": [
+        "STM32CubeProg flash"
+      ],
+      "problemMatcher": {
+        "owner": "custom",
+        "pattern": {
+          "regexp": ""
+        },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^st-util\\s.$",
+          "endsPattern": "^(\\d+)-.*Listening\\sat\\s\\*:\\d+.*$"
+        }
+      },
+      "group": "build"
+    },
+    {
+      "label": "objcopy to hex",
+      "command": "arm-none-eabi-objcopy",
+      "type": "shell",
+      "args": [
+        "-O",
+        "ihex",
+        "${workspaceFolder:ADC}/build/RelWithDebInfo/lab_adc.elf",
+        "${workspaceFolder:ADC}/build/Debug/timer.hex"
+      ],
+      "group": "build"
+    }
+  ]
+}

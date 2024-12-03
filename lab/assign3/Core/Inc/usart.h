@@ -71,6 +71,8 @@ typedef struct {
   uint16_t rxlen;
   uint16_t maxlen;
 } USARTRecvBuffer;
+
+#define curBufSize(buf) (sizeof(buf.curBuffer) / sizeof(buf.curBuffer[0]))
 /* USER CODE END Private defines */
 
 void MX_USART1_UART_Init(void);

@@ -4,10 +4,6 @@
       "path": "."
     },
     {
-      "name": "lab_led",
-      "path": "lab/lab_led"
-    },
-    {
       "name": "assign1",
       "path": "lab/assign1"
     }

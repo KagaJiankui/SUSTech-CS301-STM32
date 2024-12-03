@@ -21,6 +21,7 @@
 #include "usart.h"
 
 /* USER CODE BEGIN 0 */
+#include <stdio.h>
 #include <string.h>
 
 #include "lcd.h"
@@ -30,6 +31,16 @@
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_rx;
 extern USARTRecvBuffer USART1Buffer;
+enum {
+  INIT,
+  fStart_0x12,
+  fStart_0x34,
+  _CR,
+  _LF,
+  LenCount,
+  _doRecv,
+  _doMemcpy
+} USART1_State;
 
 /* USART1 init function */
 
@@ -147,19 +158,24 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef *uartHandle) {
  * | 0x1234 |   <=0x1518  |sizeof(Data)<=5400*sizeof(uint8_t)| 0x0D0A |
  * ```
  *
- * @param huart Pointer to the UART handle.
- * @param Size Number of bytes received, ususally obtained from `huart->RxXferSize`.
+ * @param huart Pointer to the UART handle for the receiving interface.
+ * @param Size Number of bytes received during the event.
+ * @note paremeter `uint16_t Size` pointers to `huart->RxXferSize` rather than `CNDTR`.
  */
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, volatile uint16_t Size) {
+  uint8_t d_len[8] = {0};
   if (huart->Instance == USART1) {
     if (USART1Buffer.rxlen >= USART1Buffer.maxlen) {
       USART1Buffer.rxlen = 0;
     }
     uint8_t *dest = &USART1Buffer.uBuffer[(uint8_t)USART_RECVLENGTH_LOCAL(USART1Buffer)];
-    memcpy(dest, (uint8_t *)(&USART1Buffer.curBuffer[4]), (Size - 2) * sizeof(uint8_t));
-    USART1Buffer.rxlen += (Size - 6);  // 2: header, 2: length, 2: CRLF
-    // HAL_UART_Transmit(huart, (uint8_t *)USART1Buffer.uBuffer, 2, 1000);
+    sprintf(d_len, "%x:%s", (uint8_t)huart1.hdmarx->Instance->CNDTR, USART1Buffer.curBuffer);
+    HAL_UART_Transmit(huart, d_len, sizeof(d_len), 1000);
+    if (Size > 2) {
+      memcpy(dest, (uint8_t *)(&USART1Buffer.curBuffer[4]), (Size - 2) * sizeof(uint8_t));
+    }  // this thing copies u32?
+    USART1Buffer.rxlen += Size;  // 2: header, 2: length, 2: CRLF
     memset((uint8_t *)USART1Buffer.curBuffer, 0, USART_RECV_BUFLEN * sizeof(uint8_t));
   }
 }

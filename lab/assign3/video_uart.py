@@ -81,30 +81,29 @@ ser_frame_length = 150
 for fr in all_frame_data:
   serial_data_array = np.array(fr, dtype=np.uint16)
   serial_data_array = serial_data_array.reshape((serial_data_array.__len__() // ser_frame_length, ser_frame_length))
-  serial_data_array = list(serial_data_array)
+  serial_data_array = [x.tolist() for x in serial_data_array]
   # 发送处理后的帧数据
   for frame_index, frame_data in enumerate(serial_data_array):
     # 发送固定标志位
-
     frame_marker = 0x1234
-    ser.write(frame_marker.to_bytes(2, byteorder="little"))  # 发送16位固定标志位
-    # ser.write(len(frame_data).to_bytes(2, byteorder="little"))  # 发送帧数据长度
+    frame_data.insert(0, len(frame_data))
+    frame_data.insert(0, frame_marker)
+    frame_data.append(0x0D0A)
+    # 发送帧数据
+    for value in frame_data:
+      ser.write(value.to_bytes(2, byteorder="little"))  # 发送16位数据
+    # 换行符表示帧结束
+    # ser.write(0x0D0A.to_bytes(2, byteorder="little"))
+    print("".join(f"{value:x}" for value in frame_data))
+    # time.sleep(2)
     ser.timeout = 0.001
     raw_data = ser.read(2)
     if raw_data:
       index = struct.unpack("<2B", raw_data)
       print(index)
-
-    # 发送帧数据
-    for value in frame_data:
-      ser.write(value.astype(np.uint16).tobytes())  # 发送16位数据
-
-    # 换行符表示帧结束
-    # ser.write(0x0D0A.to_bytes(2, byteorder="little"))
-    print("".join(f"{value:x}" for value in frame_data))
-    time.sleep(2)
     break
     print("Frame %d sent." % frame_index)
+  break
 
 # 释放视频读取对象
 cap.release()
