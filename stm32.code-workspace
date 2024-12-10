@@ -2,10 +2,6 @@
   "folders": [
     {
       "path": "."
-    },
-    {
-      "path": "./lab/lab_adc",
-      "name": "ADC"
     }
   ],
   "settings": {

@@ -20,9 +20,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_it.h"
 
-#include "printf.h"
+#include <stdio.h>
 
 #include "main.h"
+#include "usart.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 /* USER CODE END Includes */
@@ -44,7 +45,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern UART_HandleTypeDef huart1;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -58,11 +59,10 @@ extern UART_HandleTypeDef huart1;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
-extern DMA_HandleTypeDef hdma_adc1;
-extern ADC_HandleTypeDef hadc1;
-extern TIM_HandleTypeDef htim3;
+extern UART_HandleTypeDef huart1;
+extern USARTRecvBuffer USART1Buffer;
 /* USER CODE BEGIN EV */
-extern uint8_t ADC_OK;
+
 /* USER CODE END EV */
 
 /******************************************************************************/
@@ -84,7 +84,6 @@ void NMI_Handler(void) {
 /**
  * @brief This function handles Hard fault interrupt.
  */
-
 #if defined(__CC_ARM)
 __asm void HardFault_Handler(void) { TST lr, #4 ITE EQ MRSEQ r0, MSP MRSNE r0, PSP B __cpp(Hard_Fault_Handler) }
 #elif defined(__ICCARM__) || defined(__GNUC__)
@@ -258,42 +257,16 @@ void SysTick_Handler(void) {
 /******************************************************************************/
 
 /**
- * @brief This function handles DMA1 channel1 global interrupt.
+ * @brief This function handles USART1 global interrupt.
  */
-void DMA1_Channel1_IRQHandler(void) {
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 0 */
+void USART1_IRQHandler(void) {
+  /* USER CODE BEGIN USART1_IRQn 0 */
 
-  /* USER CODE END DMA1_Channel1_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_adc1);
-  /* USER CODE BEGIN DMA1_Channel1_IRQn 1 */
-  ADC_OK = 1;
-  /* USER CODE END DMA1_Channel1_IRQn 1 */
-}
-
-/**
- * @brief This function handles ADC1 and ADC2 global interrupts.
- */
-void ADC1_2_IRQHandler(void) {
-  /* USER CODE BEGIN ADC1_2_IRQn 0 */
-
-  /* USER CODE END ADC1_2_IRQn 0 */
-  HAL_ADC_IRQHandler(&hadc1);
-  /* USER CODE BEGIN ADC1_2_IRQn 1 */
-
-  /* USER CODE END ADC1_2_IRQn 1 */
-}
-
-/**
- * @brief This function handles TIM3 global interrupt.
- */
-void TIM3_IRQHandler(void) {
-  /* USER CODE BEGIN TIM3_IRQn 0 */
-
-  /* USER CODE END TIM3_IRQn 0 */
-  HAL_TIM_IRQHandler(&htim3);
-  /* USER CODE BEGIN TIM3_IRQn 1 */
-
-  /* USER CODE END TIM3_IRQn 1 */
+  /* USER CODE END USART1_IRQn 0 */
+  HAL_UART_IRQHandler(&huart1);
+  /* USER CODE BEGIN USART1_IRQn 1 */
+  HAL_UART_Receive_IT(&huart1, (uint8_t *)USART1Buffer.curBuffer, USART_RXBUFFER_LEN);
+  /* USER CODE END USART1_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */
